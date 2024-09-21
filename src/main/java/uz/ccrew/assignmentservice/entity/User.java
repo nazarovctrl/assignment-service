@@ -8,7 +8,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "user_u1", columnNames = "login")})
 @NoArgsConstructor
 @Getter
 @Setter
