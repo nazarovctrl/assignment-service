@@ -1,4 +1,4 @@
-package uz.ccrew.assignmentsevice;
+package uz.ccrew.assignmentservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
