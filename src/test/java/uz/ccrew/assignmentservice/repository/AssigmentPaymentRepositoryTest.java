@@ -1,7 +1,10 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.enums.*;
 import uz.ccrew.assignmentservice.entity.*;
+import uz.ccrew.assignmentservice.enums.Category;
+import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.enums.PaymentType;
+import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -17,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class SwiftTransferAssignmentRepositoryTest {
+public class AssigmentPaymentRepositoryTest {
     @Autowired
     private FileRepository fileRepository;
     @Autowired
@@ -25,11 +28,11 @@ public class SwiftTransferAssignmentRepositoryTest {
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
-    private TransferAssignmentRepository transferAssignmentRepository;
+    private AssigmentPaymentRepository assigmentPaymentRepository;
     @Autowired
-    private SwiftTransferAssignmentRepository swiftTransferAssignmentRepository;
+    private RequisiteAssignmentRepository requisiteAssignmentRepository;
 
-    TransferAssignment createTransferAssignment() {
+    RequisiteAssignment createRequisiteAssignment() {
         File file = File.builder()
                 .fileId(UUID.randomUUID())
                 .url("http:80/localhost/test/file/url")
@@ -51,51 +54,45 @@ public class SwiftTransferAssignmentRepositoryTest {
                 .status(AssignmentStatus.IN_REVIEW)
                 .build();
         assignment.setCreatedBy(user);
+
         assignmentRepository.save(assignment);
 
-
-        TransferAssignment transferAssignment = TransferAssignment.builder()
-                .amount(1000L)
-                .type(TransferType.SWIFT)
-                .receiverCountry("Uzb")
-                .receiverFullName("Azimjon")
+        RequisiteAssignment requisiteAssignment = RequisiteAssignment.builder()
                 .assignment(assignment)
+                .paymentType(PaymentType.ACCOUNT)
+                .accountNumber("123123")
+                .paymentAmount(10000L)
                 .build();
-        transferAssignmentRepository.save(transferAssignment);
-
-        return transferAssignment;
+        requisiteAssignmentRepository.save(requisiteAssignment);
+        return requisiteAssignment;
     }
 
     @Transactional
     @Test
     void saveOk() {
-        TransferAssignment transferAssignment = createTransferAssignment();
+        RequisiteAssignment requisiteAssignment = createRequisiteAssignment();
 
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
-                .accountNumber("123123")
-                .receiverType(SwiftReceiverType.PHYSICAL)
+        AssigmentPayment assigmentPayment = AssigmentPayment.builder()
+                .requisiteAssignment(requisiteAssignment)
+                .paymentId(UUID.randomUUID())
                 .build();
 
-        assertDoesNotThrow(() -> swiftTransferAssignmentRepository.save(swiftTransferAssignment));
+        assertDoesNotThrow(() -> assigmentPaymentRepository.save(assigmentPayment));
     }
 
     @Transactional
     @Test
-    void saveEXp() {
-        TransferAssignment transferAssignment = createTransferAssignment();
+    void saveExp() {
+        RequisiteAssignment requisiteAssignment = createRequisiteAssignment();
 
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
-                .accountNumber("123123")
-                .receiverType(SwiftReceiverType.LEGAL)
+        AssigmentPayment assigmentPayment = AssigmentPayment.builder()
+                .requisiteAssignment(requisiteAssignment)
+                .paymentId(null)
                 .build();
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            swiftTransferAssignmentRepository.save(swiftTransferAssignment);
-            swiftTransferAssignmentRepository.flush();
+            assigmentPaymentRepository.save(assigmentPayment);
+            assigmentPaymentRepository.flush();
         });
     }
 }

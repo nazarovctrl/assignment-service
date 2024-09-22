@@ -1,0 +1,6 @@
+package uz.ccrew.assignmentservice.repository;
+
+import uz.ccrew.assignmentservice.entity.CertificateAssignmentAccount;
+
+public interface CertificateAssignmentAccountRepository extends BasicRepository<CertificateAssignmentAccount, CertificateAssignmentAccount.CertificateAssignmentAccountId> {
+}
