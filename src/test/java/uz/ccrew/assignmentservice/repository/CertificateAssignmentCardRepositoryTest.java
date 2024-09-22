@@ -1,7 +1,9 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.enums.*;
 import uz.ccrew.assignmentservice.entity.*;
+import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.enums.Category;
+import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -11,13 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.UUID;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class SwiftTransferAssignmentRepositoryTest {
+public class CertificateAssignmentCardRepositoryTest {
     @Autowired
     private FileRepository fileRepository;
     @Autowired
@@ -25,11 +28,11 @@ public class SwiftTransferAssignmentRepositoryTest {
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
-    private TransferAssignmentRepository transferAssignmentRepository;
+    private CertificateAssignmentRepository certificateAssignmentRepository;
     @Autowired
-    private SwiftTransferAssignmentRepository swiftTransferAssignmentRepository;
+    private CertificateAssignmentCardRepository certificateAssignmentCardRepository;
 
-    TransferAssignment createTransferAssignment() {
+    CertificateAssignment createCertificateAssignment() {
         File file = File.builder()
                 .fileId(UUID.randomUUID())
                 .url("http:80/localhost/test/file/url")
@@ -53,49 +56,41 @@ public class SwiftTransferAssignmentRepositoryTest {
         assignment.setCreatedBy(user);
         assignmentRepository.save(assignment);
 
-
-        TransferAssignment transferAssignment = TransferAssignment.builder()
-                .amount(1000L)
-                .type(TransferType.SWIFT)
-                .receiverCountry("Uzb")
-                .receiverFullName("Azimjon")
+        CertificateAssignment certificateAssignment = CertificateAssignment.builder()
                 .assignment(assignment)
+                .beginDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(2))
                 .build();
-        transferAssignmentRepository.save(transferAssignment);
-
-        return transferAssignment;
+        certificateAssignmentRepository.save(certificateAssignment);
+        return certificateAssignment;
     }
 
     @Transactional
     @Test
     void saveOk() {
-        TransferAssignment transferAssignment = createTransferAssignment();
+        CertificateAssignment certificateAssignment = createCertificateAssignment();
 
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
-                .accountNumber("123123")
-                .receiverType(SwiftReceiverType.PHYSICAL)
+        CertificateAssignmentCard certificateAssignmentCard = CertificateAssignmentCard.builder()
+                .id(new CertificateAssignmentCard.CertificateAssignmentCardId(certificateAssignment.getAssignmentId(), "12312312"))
+                .certificateAssignment(certificateAssignment)
                 .build();
 
-        assertDoesNotThrow(() -> swiftTransferAssignmentRepository.save(swiftTransferAssignment));
+        assertDoesNotThrow(() -> certificateAssignmentCardRepository.save(certificateAssignmentCard));
     }
 
     @Transactional
     @Test
-    void saveEXp() {
-        TransferAssignment transferAssignment = createTransferAssignment();
+    void saveExp() {
+        CertificateAssignment certificateAssignment = createCertificateAssignment();
 
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
-                .accountNumber("123123")
-                .receiverType(SwiftReceiverType.LEGAL)
+        CertificateAssignmentCard certificateAssignmentCard = CertificateAssignmentCard.builder()
+                .id(new CertificateAssignmentCard.CertificateAssignmentCardId(certificateAssignment.getAssignmentId(), null))
+                .certificateAssignment(certificateAssignment)
                 .build();
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            swiftTransferAssignmentRepository.save(swiftTransferAssignment);
-            swiftTransferAssignmentRepository.flush();
+            certificateAssignmentCardRepository.save(certificateAssignmentCard);
+            certificateAssignmentCardRepository.flush();
         });
     }
 }

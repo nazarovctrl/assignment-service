@@ -1,7 +1,10 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.enums.*;
 import uz.ccrew.assignmentservice.entity.*;
+import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.enums.Category;
+import uz.ccrew.assignmentservice.enums.PaymentType;
+import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -17,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class SwiftTransferAssignmentRepositoryTest {
+public class RequisiteAssignmentRepositoryTest {
     @Autowired
     private FileRepository fileRepository;
     @Autowired
@@ -25,11 +28,9 @@ public class SwiftTransferAssignmentRepositoryTest {
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
-    private TransferAssignmentRepository transferAssignmentRepository;
-    @Autowired
-    private SwiftTransferAssignmentRepository swiftTransferAssignmentRepository;
+    private RequisiteAssignmentRepository requisiteAssignmentRepository;
 
-    TransferAssignment createTransferAssignment() {
+    Assignment createAssignment() {
         File file = File.builder()
                 .fileId(UUID.randomUUID())
                 .url("http:80/localhost/test/file/url")
@@ -51,51 +52,39 @@ public class SwiftTransferAssignmentRepositoryTest {
                 .status(AssignmentStatus.IN_REVIEW)
                 .build();
         assignment.setCreatedBy(user);
+
         assignmentRepository.save(assignment);
-
-
-        TransferAssignment transferAssignment = TransferAssignment.builder()
-                .amount(1000L)
-                .type(TransferType.SWIFT)
-                .receiverCountry("Uzb")
-                .receiverFullName("Azimjon")
-                .assignment(assignment)
-                .build();
-        transferAssignmentRepository.save(transferAssignment);
-
-        return transferAssignment;
+        return assignment;
     }
 
     @Transactional
     @Test
     void saveOk() {
-        TransferAssignment transferAssignment = createTransferAssignment();
-
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
+        Assignment assignment = createAssignment();
+        RequisiteAssignment requisiteAssignment = RequisiteAssignment.builder()
+                .assignment(assignment)
+                .paymentType(PaymentType.ACCOUNT)
                 .accountNumber("123123")
-                .receiverType(SwiftReceiverType.PHYSICAL)
+                .paymentAmount(10000L)
                 .build();
 
-        assertDoesNotThrow(() -> swiftTransferAssignmentRepository.save(swiftTransferAssignment));
+        assertDoesNotThrow(() -> requisiteAssignmentRepository.save(requisiteAssignment));
     }
 
     @Transactional
     @Test
-    void saveEXp() {
-        TransferAssignment transferAssignment = createTransferAssignment();
-
-        SwiftTransferAssignment swiftTransferAssignment = SwiftTransferAssignment.builder()
-                .transferAssignment(transferAssignment)
-                .swiftCode("CODE")
-                .accountNumber("123123")
-                .receiverType(SwiftReceiverType.LEGAL)
+    void saveExp() {
+        Assignment assignment = createAssignment();
+        RequisiteAssignment requisiteAssignment = RequisiteAssignment.builder()
+                .assignment(assignment)
+                .paymentType(PaymentType.ACCOUNT)
+                .cardNumber("123123")
+                .paymentAmount(10000L)
                 .build();
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            swiftTransferAssignmentRepository.save(swiftTransferAssignment);
-            swiftTransferAssignmentRepository.flush();
+            requisiteAssignmentRepository.save(requisiteAssignment);
+            requisiteAssignmentRepository.flush();
         });
     }
 }
