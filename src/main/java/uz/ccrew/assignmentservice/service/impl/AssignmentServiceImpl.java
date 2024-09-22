@@ -20,9 +20,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AssignmentServiceImpl implements AssignmentService {
-    private final AssignmentRepository assignmentRepository;
-    private final AssignmentMapper assignmentMapper;
     private final AuthUtil authUtil;
+    private final AssignmentMapper assignmentMapper;
+    private final AssignmentRepository assignmentRepository;
 
     @Override
     public Page<AssignmentSummaryDTO> findAllAssignments(int page, int size) {
