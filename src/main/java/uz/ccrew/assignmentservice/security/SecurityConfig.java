@@ -73,7 +73,7 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
-                        .requestMatchers("/api/v1/assignment/**").hasAuthority(UserRole.CUSTOMER.name())
+                        .requestMatchers("/api/v1/assignment/findSummary").hasAuthority(UserRole.CUSTOMER.name())
                         .anyRequest().authenticated());
         return httpSecurity.build();
     }

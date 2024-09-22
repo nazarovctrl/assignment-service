@@ -29,7 +29,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         Pageable pageable = PageRequest.of(page, size);
         User loggedUser = authUtil.loadLoggedUser();
 
-        Page<Assignment> assignments = assignmentRepository.findAllByEmployee_Id(pageable, loggedUser.getId());
+        Page<Assignment> assignments = assignmentRepository.findAllByCreatedBy_Id(pageable, loggedUser.getId());
         List<AssignmentSummaryDTO> assignmentSummaries = assignmentMapper.toDTOList(assignments.getContent());
 
         return new PageImpl<>(assignmentSummaries, pageable, assignments.getTotalElements());
