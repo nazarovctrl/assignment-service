@@ -9,7 +9,7 @@ import org.springframework.data.domain.AuditorAware;
 import java.util.Optional;
 
 @Component
-public class AuditorAwareImpl implements AuditorAware<Long> {
+public class AuditorAwareImpl implements AuditorAware<User> {
     private final AuthUtil authUtil;
 
     public AuditorAwareImpl(AuthUtil authUtil) {
@@ -17,8 +17,7 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
     }
 
     @Override
-    public Optional<Long> getCurrentAuditor() {
-        Optional<User> optional = authUtil.takeLoggedUser();
-        return optional.map(User::getId);
+    public Optional<User> getCurrentAuditor() {
+        return authUtil.takeLoggedUser();
     }
 }

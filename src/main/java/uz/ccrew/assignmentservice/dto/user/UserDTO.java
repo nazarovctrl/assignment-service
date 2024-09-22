@@ -5,5 +5,5 @@ import uz.ccrew.assignmentservice.enums.UserRole;
 import lombok.Builder;
 
 @Builder
-public record UserDTO(Long id, String login, UserRole role, Long cashbackAmount) {
+public record UserDTO(Long id, String login, UserRole role) {
 }

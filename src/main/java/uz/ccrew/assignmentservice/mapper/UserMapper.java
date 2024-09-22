@@ -20,7 +20,6 @@ public class UserMapper implements Mapper<UserDTO, UserDTO, User> {
                 .id(entity.getId())
                 .login(entity.getLogin())
                 .role(entity.getRole())
-                .cashbackAmount(entity.getCashbackAmount())
                 .build();
     }
 }

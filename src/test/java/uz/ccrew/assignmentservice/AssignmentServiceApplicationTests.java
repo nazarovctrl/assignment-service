@@ -7,9 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @ActiveProfiles("test")
 class AssignmentServiceApplicationTests {
-
     @Test
     void contextLoads() {
     }
-
 }
