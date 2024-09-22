@@ -1,8 +1,9 @@
 package uz.ccrew.assignmentservice.mapper;
 
-import org.springframework.stereotype.Component;
-import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.entity.Assignment;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class AssignmentMapper implements Mapper<AssignmentSummaryDTO, AssignmentSummaryDTO, Assignment>{
