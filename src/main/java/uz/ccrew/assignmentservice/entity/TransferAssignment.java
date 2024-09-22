@@ -8,7 +8,7 @@ import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "transfer_assignments")
-@Check(name = "transfer_assignments_c1", constraints = "type = 'SWIFT' and phone_number is not null or type <> 'SWIFT' and phone_number is null")
+@Check(name = "transfer_assignments_c1", constraints = "type = 'SWIFT' and phone_number is null or type <> 'SWIFT' and phone_number is not null")
 @Getter
 @Setter
 @Builder
@@ -35,9 +35,8 @@ public class TransferAssignment extends Auditable {
     @Column(nullable = false)
     private Long amount;
 
-
-    @OneToOne
     @MapsId
-    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "transfer_assignments_f1"))
+    @OneToOne
+    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "transfer_assignments_f1"), insertable = false, updatable = false)
     private Assignment assignment;
 }
