@@ -8,8 +8,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "user_u1", columnNames = "login")})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "user_u1", columnNames = "login")})
 @NoArgsConstructor
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String login;
     @Column(nullable = false)
     private String password;
@@ -30,7 +29,4 @@ public class User extends Auditable {
 
     @Column(nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private LocalDateTime credentialsModifiedDate;
-
-    @Column(nullable = false)
-    private Long cashbackAmount;
 }

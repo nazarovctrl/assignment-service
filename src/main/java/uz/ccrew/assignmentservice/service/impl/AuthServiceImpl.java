@@ -45,7 +45,6 @@ public class AuthServiceImpl implements AuthService {
                 .password(passwordEncoder.encode(dto.password()))
                 .role(UserRole.CUSTOMER)
                 .credentialsModifiedDate(LocalDateTime.now())
-                .cashbackAmount(0L)
                 .build();
         userRepository.save(user);
         return userMapper.toDTO(user);

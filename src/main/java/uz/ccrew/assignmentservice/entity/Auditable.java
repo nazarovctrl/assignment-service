@@ -1,6 +1,7 @@
 package uz.ccrew.assignmentservice.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Getter
+@Setter
 public abstract class Auditable {
     @ManyToOne
     @JoinColumn(name = "created_by")
@@ -20,7 +22,7 @@ public abstract class Auditable {
     protected User createdBy;
 
     @CreatedDate
-    protected LocalDateTime createdDate;
+    protected LocalDateTime createdOn;
 
     @ManyToOne
     @JoinColumn(name = "modified_by")
@@ -28,5 +30,5 @@ public abstract class Auditable {
     protected User modifiedBy;
 
     @LastModifiedDate
-    protected LocalDateTime modifiedDate;
+    protected LocalDateTime modifiedOn;
 }
