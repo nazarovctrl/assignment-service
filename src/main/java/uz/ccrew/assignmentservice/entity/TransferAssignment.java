@@ -37,6 +37,6 @@ public class TransferAssignment extends Auditable {
 
     @MapsId
     @OneToOne
-    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "transfer_assignments_f1"), insertable = false, updatable = false)
+    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "transfer_assignments_f1"))
     private Assignment assignment;
 }
