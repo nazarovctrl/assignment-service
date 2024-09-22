@@ -6,5 +6,4 @@ import org.springframework.data.domain.Page;
 
 public interface AssignmentService {
     Page<AssignmentSummaryDTO> findAllAssignments(int page, int size);
-
 }
