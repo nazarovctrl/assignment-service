@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 public class SwiftTransferAssignmentRepositoryTest {
-
     @Autowired
     private FileRepository fileRepository;
     @Autowired
@@ -99,5 +98,4 @@ public class SwiftTransferAssignmentRepositoryTest {
             swiftTransferAssignmentRepository.flush();
         });
     }
-
 }
