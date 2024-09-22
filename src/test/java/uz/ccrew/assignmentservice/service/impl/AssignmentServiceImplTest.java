@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AssignmentServiceImplTest {
+
     private Assignment assignment;
     @Autowired
     private FileRepository fileRepository;
