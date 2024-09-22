@@ -6,7 +6,7 @@ import uz.ccrew.assignmentservice.enums.UserRole;
 import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
-import uz.ccrew.assignmentservice.entity.CertificateAssignment;
+import uz.ccrew.assignmentservice.entity.CardRefreshAssignment;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class CertificateAssignmentRepositoryTest {
+public class CardRefreshAssignmentRepositoryTest {
     @Autowired
     private FileRepository fileRepository;
     @Autowired
@@ -31,7 +31,7 @@ public class CertificateAssignmentRepositoryTest {
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
-    private CertificateAssignmentRepository certificateAssignmentRepository;
+    private CardRefreshAssignmentRepository cardRefreshAssignmentRepository;
 
     Assignment createAssignment() {
         File file = File.builder()
@@ -71,12 +71,12 @@ public class CertificateAssignmentRepositoryTest {
                 .build();
         fileRepository.save(identityFile);
 
-        CertificateAssignment certificateAssignment = CertificateAssignment.builder()
+        CardRefreshAssignment cardRefreshAssignment = CardRefreshAssignment.builder()
                 .assignment(assignment)
                 .identityFileId(identityFile.getFileId())
                 .build();
 
-        assertDoesNotThrow(() -> certificateAssignmentRepository.save(certificateAssignment));
+        assertDoesNotThrow(() -> cardRefreshAssignmentRepository.save(cardRefreshAssignment));
     }
 
     @Transactional
@@ -84,14 +84,14 @@ public class CertificateAssignmentRepositoryTest {
     void saveExp() {
         Assignment assignment = createAssignment();
 
-        CertificateAssignment certificateAssignment = CertificateAssignment.builder()
+        CardRefreshAssignment cardRefreshAssignment = CardRefreshAssignment.builder()
                 .assignment(assignment)
                 .identityFileId(null)
                 .build();
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            certificateAssignmentRepository.save(certificateAssignment);
-            certificateAssignmentRepository.flush();
+            cardRefreshAssignmentRepository.save(cardRefreshAssignment);
+            cardRefreshAssignmentRepository.flush();
         });
     }
 }

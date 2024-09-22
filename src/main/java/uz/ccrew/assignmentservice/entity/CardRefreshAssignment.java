@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "certificate_assignments")
+@Table(name = "card_refresh_assignments")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CertificateAssignment extends Auditable {
+public class CardRefreshAssignment extends Auditable {
     @Id
     @Column(name = "assignment_id")
     private Long assignmentId;
@@ -23,10 +23,10 @@ public class CertificateAssignment extends Auditable {
 
     @MapsId
     @OneToOne
-    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "certificate_assignments_f1"))
+    @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "card_refresh_assignments_f1"))
     private Assignment assignment;
 
     @OneToOne
-    @JoinColumn(name = "identity_file_id", foreignKey = @ForeignKey(name = "certificate_assignments_f2"), insertable = false, updatable = false)
+    @JoinColumn(name = "identity_file_id", foreignKey = @ForeignKey(name = "card_refresh_assignments_f2"), insertable = false, updatable = false)
     private File file;
 }
