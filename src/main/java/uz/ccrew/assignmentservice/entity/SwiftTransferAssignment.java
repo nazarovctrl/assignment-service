@@ -41,5 +41,5 @@ public class SwiftTransferAssignment extends Auditable {
     @OneToOne
     @MapsId
     @JoinColumn(name = "assignment_id", foreignKey = @ForeignKey(name = "swift_transfer_assignments_f1"))
-    private TransferAssignment assignment;
+    private TransferAssignment transferAssignment;
 }
