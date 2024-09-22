@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
 public class CardRefreshAssignmentRepositoryTest {
