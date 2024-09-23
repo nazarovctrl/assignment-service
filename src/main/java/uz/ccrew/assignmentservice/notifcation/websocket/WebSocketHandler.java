@@ -28,6 +28,8 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         Principal principal = session.getPrincipal();
-        sessions.remove(principal.getName());
+        if (principal != null) {
+            sessions.remove(principal.getName());
+        }
     }
 }
