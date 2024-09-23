@@ -1,5 +1,7 @@
 package uz.ccrew.assignmentservice.entity;
 
+import uz.ccrew.assignmentservice.file.File;
+
 import lombok.*;
 import jakarta.persistence.*;
 

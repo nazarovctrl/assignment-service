@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','EMPLOYEE','CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CUSTOMER','EMPLOYEE','MANAGER')")
     @SecurityRequirement(name = "Bearer Authentication")
     @Operation(summary = "Refresh Access token")
     public ResponseEntity<Response<String>> refresh() {

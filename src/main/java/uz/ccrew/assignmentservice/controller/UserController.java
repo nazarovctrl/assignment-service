@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','EMPLOYEE','CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CUSTOMER','EMPLOYEE','MANAGER')")
     @Operation(summary = "Get user")
     public ResponseEntity<Response<UserDTO>> get() {
         UserDTO result = userService.get();
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','EMPLOYEE','CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR','CUSTOMER','EMPLOYEE','MANAGER')")
     @Operation(summary = "Update user")
     public ResponseEntity<Response<UserDTO>> update(@RequestBody UserUpdateDTO dto) {
         UserDTO result = userService.update(dto);
