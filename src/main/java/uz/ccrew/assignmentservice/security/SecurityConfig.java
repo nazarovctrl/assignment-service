@@ -1,6 +1,5 @@
 package uz.ccrew.assignmentservice.security;
 
-import uz.ccrew.assignmentservice.enums.UserRole;
 import uz.ccrew.assignmentservice.security.jwt.JWTAuthenticationFilter;
 import uz.ccrew.assignmentservice.security.user.UserAuthenticationEntryPoint;
 
@@ -73,7 +72,6 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
-                        .requestMatchers("/api/v1/assignment/findSummary").hasAuthority(UserRole.CUSTOMER.name())
                         .anyRequest().authenticated());
         return httpSecurity.build();
     }
