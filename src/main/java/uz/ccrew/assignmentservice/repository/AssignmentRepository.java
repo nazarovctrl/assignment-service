@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 import uz.ccrew.assignmentservice.entity.Assignment;
 
 public interface AssignmentRepository extends BasicRepository<Assignment, Long> {
-    Page<Assignment> findAllByCreatedBy_Id(Pageable pageable, Long createdBy);
+    Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 }

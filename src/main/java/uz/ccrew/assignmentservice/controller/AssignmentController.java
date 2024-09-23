@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class AssignmentController {
     private final AssignmentService assignmentService;
 
-    @GetMapping("/findSummary")
+    @GetMapping("/my/list")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all summary assignments")
     public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllAssignments(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
