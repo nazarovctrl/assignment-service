@@ -11,7 +11,6 @@ import java.security.Principal;
 
 @RequiredArgsConstructor
 public class WebSocketHandler extends AbstractWebSocketHandler {
-
     private final Map<String, WebSocketSession> sessions;
 
     @Override
