@@ -1,7 +1,4 @@
-package uz.ccrew.assignmentservice.repository;
-
-import uz.ccrew.assignmentservice.file.File;
-import uz.ccrew.assignmentservice.file.FileRepository;
+package uz.ccrew.assignmentservice.file;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
