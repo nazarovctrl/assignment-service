@@ -1,5 +1,6 @@
 package uz.ccrew.assignmentservice.entity;
 
+import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 

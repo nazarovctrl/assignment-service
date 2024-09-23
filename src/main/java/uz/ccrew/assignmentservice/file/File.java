@@ -1,4 +1,6 @@
-package uz.ccrew.assignmentservice.entity;
+package uz.ccrew.assignmentservice.file;
+
+import uz.ccrew.assignmentservice.entity.Auditable;
 
 import lombok.*;
 import jakarta.persistence.*;

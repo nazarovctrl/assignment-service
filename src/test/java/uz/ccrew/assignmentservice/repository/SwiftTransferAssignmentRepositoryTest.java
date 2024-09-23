@@ -1,7 +1,10 @@
 package uz.ccrew.assignmentservice.repository;
 
+
 import uz.ccrew.assignmentservice.enums.*;
 import uz.ccrew.assignmentservice.entity.*;
+import uz.ccrew.assignmentservice.file.File;
+import uz.ccrew.assignmentservice.file.FileRepository;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
