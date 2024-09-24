@@ -28,7 +28,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AssignmentRepository assignmentRepository;
 
     @Override
-    public Page<AssignmentSummaryDTO> findAllAssignments(int page, int size) {
+    public Page<AssignmentSummaryDTO> getSummaryList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         User user = authUtil.loadLoggedUser();
 
@@ -39,7 +39,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public AssignmentDetailedDTO findAllAssignmentDetailed(Long id) {
+    public AssignmentDetailedDTO getDetailed(Long id) {
         User user = authUtil.loadLoggedUser();
         Optional<AssignmentDetailedDTO> detailedDTO = assignmentRepository.findAssignmentDetailedByIdAndUserId(user.getId(), id);
         if (detailedDTO.isEmpty()) {

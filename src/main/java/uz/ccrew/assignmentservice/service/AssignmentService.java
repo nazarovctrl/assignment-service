@@ -6,7 +6,7 @@ import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
 import org.springframework.data.domain.Page;
 
 public interface AssignmentService {
-    Page<AssignmentSummaryDTO> findAllAssignments(int page, int size);
+    Page<AssignmentSummaryDTO> getSummaryList(int page, int size);
 
-    AssignmentDetailedDTO findAllAssignmentDetailed(Long id);
+    AssignmentDetailedDTO getDetailed(Long id);
 }

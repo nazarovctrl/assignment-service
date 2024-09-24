@@ -14,19 +14,20 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
     @Query("""
-            SELECT new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
-                a.assigmentId,
-                a.category,
-                a.createdOn,
-                a.status,
-                r.paymentAmount,
-                a.details,
-                a.note
-            )
-            FROM Assignment a
-            LEFT JOIN RequisiteAssignment r ON a.assigmentId = r.assignmentId
-            WHERE a.assigmentId = :assigmentId
-            AND a.createdBy.id = :userId
+            select new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
+                  a.assigmentId,
+                  a.category,
+                  a.createdOn,
+                  a.status,
+                  r.paymentAmount,
+                  a.details,
+                  a.note
+             )
+             from Assignment a
+             left join RequisiteAssignment r
+               on a.assigmentId = r.assignmentId
+            where a.assigmentId = :assigmentId
+              and  a.createdBy.id = :userId
             """)
     Optional<AssignmentDetailedDTO> findAssignmentDetailedByIdAndUserId(@Param("userId") Long userId, @Param("assigmentId") Long assigmentId);
 }

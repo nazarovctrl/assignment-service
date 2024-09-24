@@ -28,15 +28,15 @@ public class AssignmentController {
     @Operation(summary = "Get all summary assignments")
     public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllAssignments(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
+        Page<AssignmentSummaryDTO> result = assignmentService.getSummaryList(page, size);
         return ResponseMaker.ok(result);
     }
 
-    @GetMapping("/detailed/{id}")
+    @GetMapping("/detailed/{assignmentId}")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get detailed assignment")
-    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailedAssignment(@PathVariable("id") Long id) {
-        AssignmentDetailedDTO result = assignmentService.findAllAssignmentDetailed(id);
+    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailedAssignment(@PathVariable("assignmentId") Long id) {
+        AssignmentDetailedDTO result = assignmentService.getDetailed(id);
         return ResponseMaker.ok(result);
     }
 }
