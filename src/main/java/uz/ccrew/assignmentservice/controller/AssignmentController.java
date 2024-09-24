@@ -31,7 +31,7 @@ public class AssignmentController {
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all summary assignments")
     public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllSummary(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                                                                  @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+                                                                              @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
         Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
         return ResponseMaker.ok(result);
     }
