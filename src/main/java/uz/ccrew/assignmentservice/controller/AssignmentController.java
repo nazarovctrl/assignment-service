@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/assignment")
 @SecurityRequirement(name = "Bearer Authentication")
@@ -32,5 +34,13 @@ public class AssignmentController {
                                                                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
         Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
         return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/get/categories")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Get all categories")
+    public ResponseEntity<Response<Map<String, String>>> getAllCategories() {
+        Map<String, String> categories = assignmentService.getCategories();
+        return ResponseMaker.ok(categories);
     }
 }
