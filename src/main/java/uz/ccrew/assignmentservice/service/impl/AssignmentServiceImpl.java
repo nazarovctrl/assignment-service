@@ -28,7 +28,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AssignmentRepository assignmentRepository;
 
     @Override
-    public Page<AssignmentSummaryDTO> getSummaryList(int page, int size) {
+    public Page<AssignmentSummaryDTO> getSummary(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         User user = authUtil.loadLoggedUser();
 

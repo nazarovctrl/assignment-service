@@ -27,7 +27,7 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
              left join RequisiteAssignment r
                on a.assigmentId = r.assignmentId
             where a.assigmentId = :assigmentId
-              and  a.createdBy.id = :userId
+              and a.createdBy.id = :userId
             """)
     Optional<AssignmentDetailedDTO> findAssignmentDetailedByIdAndUserId(@Param("userId") Long userId, @Param("assigmentId") Long assigmentId);
 }
