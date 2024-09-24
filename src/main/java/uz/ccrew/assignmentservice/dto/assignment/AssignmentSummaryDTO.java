@@ -8,7 +8,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record AssignmentSummaryDTO(Long assignmentId,
+public record AssignmentSummaryDTO(Long assigmentId,
                                    Category category,
                                    LocalDateTime date,
                                    AssignmentStatus status) {}
