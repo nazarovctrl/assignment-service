@@ -15,6 +15,7 @@ public class AssignmentMapper implements Mapper<AssignmentSummaryDTO, Assignment
     @Override
     public AssignmentSummaryDTO toDTO(Assignment assignment) {
         return AssignmentSummaryDTO.builder()
+                .assignmentId(assignment.getAssigmentId())
                 .category(assignment.getCategory())
                 .date(assignment.getCreatedOn())
                 .status(assignment.getStatus())
