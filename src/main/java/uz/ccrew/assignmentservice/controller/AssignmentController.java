@@ -35,7 +35,7 @@ public class AssignmentController {
     @GetMapping("/detailed/{assignmentId}")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get detailed assignment")
-    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailedAssignment(@PathVariable("assignmentId") Long id) {
+    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailed(@PathVariable("assignmentId") Long id) {
         AssignmentDetailedDTO result = assignmentService.getDetailed(id);
         return ResponseMaker.ok(result);
     }
