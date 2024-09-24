@@ -21,8 +21,7 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
                   a.status,
                   r.paymentAmount,
                   a.details,
-                  a.note
-             )
+                  a.note)
              from Assignment a
              left join RequisiteAssignment r
                on a.assigmentId = r.assignmentId
