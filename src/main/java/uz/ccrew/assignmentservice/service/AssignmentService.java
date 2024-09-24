@@ -9,5 +9,5 @@ import java.util.Map;
 public interface AssignmentService {
     Page<AssignmentSummaryDTO> findAllAssignments(int page, int size);
 
-    Map<String, String> getCategories();
+    Map<String, String> getAllCategories();
 }

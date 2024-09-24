@@ -37,7 +37,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         return new PageImpl<>(assignmentSummaries, pageable, assignments.getTotalElements());
     }
 
-    public Map<String, String> getCategories() {
+    public Map<String, String> getAllCategories() {
         Map<String, String> categories = new HashMap<>();
         categories.put("swiftPhysical", "SWIFT transfers for physical");
         categories.put("swiftForLegalEntities", "SWIFT transfers for legal entities");

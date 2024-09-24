@@ -40,7 +40,7 @@ public class AssignmentController {
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all categories")
     public ResponseEntity<Response<Map<String, String>>> getAllCategories() {
-        Map<String, String> categories = assignmentService.getCategories();
+        Map<String, String> categories = assignmentService.getAllCategories();
         return ResponseMaker.ok(categories);
     }
 }
