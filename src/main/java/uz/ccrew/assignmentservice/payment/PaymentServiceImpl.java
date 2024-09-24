@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.HttpClientErrorException;
+import uz.ccrew.assignmentservice.exp.BadRequestException;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,22 @@ public class PaymentServiceImpl implements PaymentService {
             return withdrawByCard(requisite.getCardNumber(), requisite.getPaymentAmount());
         } else {
             return withdrawByAccount(requisite.getAccountNumber(), requisite.getPaymentAmount());
+        }
+    }
+
+    @Override
+    public void reverse(String paymentId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBasicAuth(paymentServiceUsername, paymentServicePassword);
+
+            String requestUrl = String.format("%s/api/v1/payment/reverse{%s}", paymentServiceUrl, paymentId);
+
+            HttpEntity<String> request = new HttpEntity<>(headers);
+            ResponseEntity<String> response = restTemplate.exchange(requestUrl, HttpMethod.POST, request, String.class);
+        } catch (HttpClientErrorException e) {
+            throw new BadRequestException("Payment reverse exception");
         }
     }
 
