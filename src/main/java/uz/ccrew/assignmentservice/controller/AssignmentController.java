@@ -4,16 +4,14 @@ import uz.ccrew.assignmentservice.dto.Response;
 import uz.ccrew.assignmentservice.dto.ResponseMaker;
 import uz.ccrew.assignmentservice.service.AssignmentService;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -31,6 +29,14 @@ public class AssignmentController {
     public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllAssignments(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
         Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
+        return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/detailed/{id}")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Get detailed assignment")
+    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailedAssignment(@PathVariable("id") Long id) {
+        AssignmentDetailedDTO result = assignmentService.findAllAssignmentDetailed(id);
         return ResponseMaker.ok(result);
     }
 }
