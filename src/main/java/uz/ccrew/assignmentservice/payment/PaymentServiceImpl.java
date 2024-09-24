@@ -25,21 +25,12 @@ public class PaymentServiceImpl implements PaymentService {
     private final RestTemplate restTemplate;
 
     @Override
-    public void withdraw(RequisiteAssignment requisite) {
-        String paymentId;
+    public String withdraw(RequisiteAssignment requisite) {
         if (requisite.getPaymentType().equals(PaymentType.CARD)) {
-            paymentId = withdrawByCard(requisite.getCardNumber(), requisite.getPaymentAmount());
+            return withdrawByCard(requisite.getCardNumber(), requisite.getPaymentAmount());
         } else {
-            paymentId = withdrawByAccount(requisite.getAccountNumber(), requisite.getPaymentAmount());
+            return withdrawByAccount(requisite.getAccountNumber(), requisite.getPaymentAmount());
         }
-
-        if (paymentId == null) {
-            //send notification
-            return;
-        }
-
-        System.out.println(paymentId);
-        //update requisite
     }
 
     private String withdrawByCard(String cardNumber, Long paymentAmount) {
@@ -83,5 +74,4 @@ public class PaymentServiceImpl implements PaymentService {
             return null;
         }
     }
-
 }
