@@ -1,6 +1,7 @@
 package uz.ccrew.assignmentservice.payment;
 
 import uz.ccrew.assignmentservice.enums.PaymentType;
+import uz.ccrew.assignmentservice.exp.BadRequestException;
 import uz.ccrew.assignmentservice.entity.RequisiteAssignment;
 
 import com.google.gson.Gson;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.HttpClientErrorException;
-import uz.ccrew.assignmentservice.exp.BadRequestException;
 
 @Service
 @RequiredArgsConstructor

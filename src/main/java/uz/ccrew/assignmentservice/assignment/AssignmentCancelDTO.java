@@ -1,9 +1,10 @@
 package uz.ccrew.assignmentservice.assignment;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record AssignmentCancelDTO(@NotNull(message = "Invalid assignmentId")
                                   Long assignmentId,
-                                  @NotNull(message = "Invalid node")
+                                  @NotBlank(message = "Invalid node")
                                   String note) {
 }

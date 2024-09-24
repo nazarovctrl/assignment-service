@@ -1,7 +1,8 @@
 package uz.ccrew.assignmentservice.assignment;
 
-import jakarta.validation.constraints.NotNull;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
+
+import jakarta.validation.constraints.NotNull;
 
 public record AssignmentStatusChangeDTO(@NotNull(message = "Invalid assigmentId")
                                         Long assignmentId,
