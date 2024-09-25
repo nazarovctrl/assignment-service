@@ -3,9 +3,13 @@ package uz.ccrew.assignmentservice.controller;
 import uz.ccrew.assignmentservice.dto.Response;
 import uz.ccrew.assignmentservice.dto.ResponseMaker;
 import uz.ccrew.assignmentservice.service.AssignmentService;
+import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
+import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
+import uz.ccrew.assignmentservice.assignment.AssignmentStatusChangeDTO;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/assignment")
@@ -38,5 +44,37 @@ public class AssignmentController {
     public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailed(@PathVariable("assignmentId") Long id) {
         AssignmentDetailedDTO result = assignmentService.getDetailed(id);
         return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/get/categories")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Get all categories")
+    public ResponseEntity<Response<Map<String, String>>> getAllCategories() {
+        Map<String, String> categories = assignmentService.getAllCategories();
+        return ResponseMaker.ok(categories);
+    }
+
+    @PatchMapping("/cancel")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    @Operation(summary = "Cancel assignment when status ACCEPTED")
+    public ResponseEntity<Response<?>> cancel(@RequestBody @Valid AssignmentCancelDTO dto) {
+        assignmentService.cancel(dto);
+        return ResponseMaker.okMessage("Canceled");
+    }
+
+    @PatchMapping("/change-status")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE','MANAGER')")
+    @Operation(summary = "Change status")
+    public ResponseEntity<Response<?>> changeStatus(@RequestBody @Valid AssignmentStatusChangeDTO dto) {
+        assignmentService.changeStatus(dto);
+        return ResponseMaker.okMessage("Status changed");
+    }
+
+    @PatchMapping("/complete")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE')")
+    @Operation(summary = "Complete")
+    public ResponseEntity<Response<?>> complete(@RequestBody @Valid AssignmentCompleteDTO dto) {
+        assignmentService.complete(dto);
+        return ResponseMaker.okMessage("Assignment completed");
     }
 }
