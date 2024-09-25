@@ -18,7 +18,7 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
     @Query("""
-            select new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
+           select new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
                   a.assigmentId,
                   a.category,
                   a.createdOn,
