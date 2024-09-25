@@ -12,6 +12,5 @@ import java.time.LocalDateTime;
 public interface AssignmentRepository extends BasicRepository<Assignment, Long> {
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
-
     List<Assignment> findAllByStatusAndModifiedOnLessThan(AssignmentStatus status, LocalDateTime dateTime);
 }
