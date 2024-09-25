@@ -6,6 +6,7 @@ import uz.ccrew.assignmentservice.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentStatusChangeDTO;
 
 import jakarta.validation.Valid;
@@ -31,9 +32,17 @@ public class AssignmentController {
     @GetMapping("/my/list")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all summary assignments")
-    public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllSummary(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                                                              @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
+    public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getSummaryList(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                                               @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        Page<AssignmentSummaryDTO> result = assignmentService.getSummary(page, size);
+        return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/detailed/{assignmentId}")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Get detailed assignment")
+    public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailed(@PathVariable("assignmentId") Long id) {
+        AssignmentDetailedDTO result = assignmentService.getDetailed(id);
         return ResponseMaker.ok(result);
     }
 
