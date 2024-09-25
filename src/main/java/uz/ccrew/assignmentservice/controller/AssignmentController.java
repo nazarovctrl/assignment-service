@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/assignment")
 @SecurityRequirement(name = "Bearer Authentication")
@@ -29,10 +31,18 @@ public class AssignmentController {
     @GetMapping("/my/list")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all summary assignments")
-    public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllAssignments(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                                                                  @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+    public ResponseEntity<Response<Page<AssignmentSummaryDTO>>> getAllSummary(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                                              @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
         Page<AssignmentSummaryDTO> result = assignmentService.findAllAssignments(page, size);
         return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/get/categories")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Get all categories")
+    public ResponseEntity<Response<Map<String, String>>> getAllCategories() {
+        Map<String, String> categories = assignmentService.getAllCategories();
+        return ResponseMaker.ok(categories);
     }
 
     @PatchMapping("/cancel")
