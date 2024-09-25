@@ -52,6 +52,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         return new PageImpl<>(assignmentSummaries, pageable, assignments.getTotalElements());
     }
 
+    @Override
     public Map<String, String> getAllCategories() {
         Map<String, String> categories = new HashMap<>();
         categories.put("swiftPhysical", "SWIFT transfers for physical");
@@ -64,6 +65,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         return categories;
     }
+
     @Transactional
     @Override
     public void cancel(AssignmentCancelDTO dto) {
