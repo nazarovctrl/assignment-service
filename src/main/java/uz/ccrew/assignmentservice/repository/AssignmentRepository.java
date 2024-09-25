@@ -6,14 +6,12 @@ import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public interface AssignmentRepository extends BasicRepository<Assignment, Long> {
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
-    @Override
-    List<Assignment> findAll();
 
     List<Assignment> findAllByStatusAndModifiedOnLessThan(AssignmentStatus status, LocalDateTime dateTime);
 }
