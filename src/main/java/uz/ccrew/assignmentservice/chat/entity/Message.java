@@ -1,4 +1,4 @@
-package uz.ccrew.assignmentservice.chat;
+package uz.ccrew.assignmentservice.chat.entity;
 
 import uz.ccrew.assignmentservice.entity.Auditable;
 
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessage extends Auditable {
+public class Message extends Auditable {
     @Id
     @UuidGenerator
     private UUID messageId;

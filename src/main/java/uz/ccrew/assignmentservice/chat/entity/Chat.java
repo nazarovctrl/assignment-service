@@ -1,4 +1,4 @@
-package uz.ccrew.assignmentservice.chat;
+package uz.ccrew.assignmentservice.chat.entity;
 
 import uz.ccrew.assignmentservice.entity.Auditable;
 
