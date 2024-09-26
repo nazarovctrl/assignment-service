@@ -2,6 +2,7 @@ package uz.ccrew.assignmentservice.entity;
 
 import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.enums.Category;
+import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 
 import lombok.*;
@@ -46,6 +47,9 @@ public class Assignment extends Auditable {
     @Column
     private String note;
 
+    @Column(name = "chat_id", nullable = false)
+    private UUID chatId;
+
 
     @OneToOne
     @JoinColumn(name = "file_id", foreignKey = @ForeignKey(name = "assignments_f1"), insertable = false, updatable = false)
@@ -58,4 +62,8 @@ public class Assignment extends Auditable {
     @OneToOne
     @JoinColumn(name = "response_file_id", foreignKey = @ForeignKey(name = "assignments_f3"), insertable = false, updatable = false)
     private File responseFile;
+
+    @OneToOne
+    @JoinColumn(name = "chat_id", foreignKey = @ForeignKey(name = "assignments_f4"), insertable = false, updatable = false, nullable = false)
+    private Chat chat;
 }
