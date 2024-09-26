@@ -18,7 +18,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatUser extends Auditable {
-
     @EmbeddedId
     private ChatUserId id;
 
