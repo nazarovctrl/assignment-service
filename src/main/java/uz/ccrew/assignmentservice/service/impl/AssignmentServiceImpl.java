@@ -3,6 +3,7 @@ package uz.ccrew.assignmentservice.service.impl;
 import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.util.AuthUtil;
 import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.exp.NotFoundException;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
@@ -15,6 +16,7 @@ import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
 import uz.ccrew.assignmentservice.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentColumnsDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentStatusChangeDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
@@ -26,11 +28,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.List;
-import java.util.Optional;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,16 +64,15 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public Map<String, String> getAllCategories() {
-        Map<String, String> categories = new HashMap<>();
-        categories.put("swiftPhysical", "SWIFT transfers for physical");
-        categories.put("swiftForLegalEntities", "SWIFT transfers for legal entities");
-        categories.put("internationalTransfers", "International transfers");
-        categories.put("certificates", "Certificate transfers");
-        categories.put("cardRefresh", "Card reissue");
-        categories.put("dispute", "Open a dispute");
-        categories.put("others", "Others");
+        return Arrays.stream(Category.values())
+                .collect(Collectors.toMap(Category::getFullForm, Category::getDescription));
+    }
 
-        return categories;
+    @Override
+    public AssignmentColumnsDTO getColumns(String category) {
+        return AssignmentColumnsDTO.builder()
+                .columns(Category.valueOf(category).getColumns())
+                .build();
     }
 
     @Transactional
