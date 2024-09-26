@@ -29,4 +29,13 @@ public enum Category {
         this.fullForm = fullForm;
         this.description = description;
     }
+
+    public static Category fullFormOf(String fullForm) {
+        for (Category category : Category.values()) {
+            if (category.fullForm.equals(fullForm)) {
+                return category;
+            }
+        }
+        return null;
+    }
 }

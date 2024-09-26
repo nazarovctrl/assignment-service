@@ -69,9 +69,14 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public AssignmentColumnsDTO getColumns(String category) {
+    public AssignmentColumnsDTO getColumns(String fullForm) {
+        Category category = Category.fullFormOf(fullForm);
+        if (category == null) {
+            throw new BadRequestException("Category Not Found");
+        }
+
         return AssignmentColumnsDTO.builder()
-                .columns(Category.valueOf(category).getColumns())
+                .columns(category.getColumns())
                 .build();
     }
 
