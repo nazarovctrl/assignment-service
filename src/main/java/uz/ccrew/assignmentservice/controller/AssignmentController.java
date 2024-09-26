@@ -2,6 +2,7 @@ package uz.ccrew.assignmentservice.controller;
 
 import uz.ccrew.assignmentservice.dto.Response;
 import uz.ccrew.assignmentservice.dto.ResponseMaker;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
@@ -52,6 +53,14 @@ public class AssignmentController {
     public ResponseEntity<Response<Map<String, String>>> getAllCategories() {
         Map<String, String> categories = assignmentService.getAllCategories();
         return ResponseMaker.ok(categories);
+    }
+
+    @PostMapping("/create/assignment")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Create assignment")
+    public ResponseEntity<Response<AssignmentCreateDTO>> createAssignment(@RequestBody @Valid AssignmentCreateDTO assignmentCreateDTO) {
+        AssignmentCreateDTO result = assignmentService.createAssignment(assignmentCreateDTO);
+        return ResponseMaker.ok(result);
     }
 
     @PatchMapping("/cancel")

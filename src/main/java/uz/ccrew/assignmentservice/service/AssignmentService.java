@@ -2,6 +2,7 @@ package uz.ccrew.assignmentservice.service;
 
 import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentStatusChangeDTO;
@@ -22,4 +23,6 @@ public interface AssignmentService {
     void changeStatus(AssignmentStatusChangeDTO dto);
 
     void complete(AssignmentCompleteDTO dto);
+
+    AssignmentCreateDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO);
 }

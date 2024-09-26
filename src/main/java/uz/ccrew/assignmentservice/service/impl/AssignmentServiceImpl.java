@@ -1,5 +1,6 @@
 package uz.ccrew.assignmentservice.service.impl;
 
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.util.AuthUtil;
 import uz.ccrew.assignmentservice.enums.UserRole;
@@ -75,6 +76,11 @@ public class AssignmentServiceImpl implements AssignmentService {
         categories.put("others", "Others");
 
         return categories;
+    }
+
+    @Override
+    public AssignmentCreateDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO) {
+        return null;
     }
 
     @Transactional
