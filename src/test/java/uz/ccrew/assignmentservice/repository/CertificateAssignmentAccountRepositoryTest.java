@@ -1,5 +1,7 @@
 package uz.ccrew.assignmentservice.repository;
 
+import uz.ccrew.assignmentservice.chat.entity.Chat;
+import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
 import uz.ccrew.assignmentservice.entity.*;
 import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.enums.Category;
@@ -28,6 +30,9 @@ public class CertificateAssignmentAccountRepositoryTest {
     private FileRepository fileRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ChatRepository chatRepository;
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
@@ -50,11 +55,16 @@ public class CertificateAssignmentAccountRepositoryTest {
                 .build();
         userRepository.save(user);
 
+        Chat chat = Chat.builder()
+                .chatName("test").build();
+        chatRepository.save(chat);
+
         Assignment assignment = Assignment.builder()
                 .fileId(file.getFileId())
                 .category(Category.SWIFT_PHYSICAL)
                 .details("Details")
                 .status(AssignmentStatus.IN_REVIEW)
+                .chatId(chat.getChatId())
                 .build();
         assignment.setCreatedBy(user);
         assignmentRepository.save(assignment);

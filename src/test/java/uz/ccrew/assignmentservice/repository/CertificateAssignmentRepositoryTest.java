@@ -1,5 +1,6 @@
 package uz.ccrew.assignmentservice.repository;
 
+import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.enums.UserRole;
@@ -8,6 +9,7 @@ import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.file.FileRepository;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.entity.CertificateAssignment;
+import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -30,6 +32,8 @@ public class CertificateAssignmentRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private ChatRepository chatRepository;
+    @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
     private CertificateAssignmentRepository certificateAssignmentRepository;
@@ -49,11 +53,16 @@ public class CertificateAssignmentRepositoryTest {
                 .build();
         userRepository.save(user);
 
+        Chat chat = Chat.builder()
+                .chatName("test").build();
+        chatRepository.save(chat);
+
         Assignment assignment = Assignment.builder()
                 .fileId(file.getFileId())
                 .category(Category.SWIFT_PHYSICAL)
                 .details("Details")
                 .status(AssignmentStatus.IN_REVIEW)
+                .chatId(chat.getChatId())
                 .build();
         assignment.setCreatedBy(user);
 

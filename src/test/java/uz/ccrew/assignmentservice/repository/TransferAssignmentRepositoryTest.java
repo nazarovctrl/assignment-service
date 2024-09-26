@@ -4,6 +4,7 @@ import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.enums.UserRole;
 import uz.ccrew.assignmentservice.enums.Category;
+import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.enums.TransferType;
 import uz.ccrew.assignmentservice.file.FileRepository;
@@ -16,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
 
 import java.util.UUID;
 import java.time.LocalDateTime;
@@ -29,6 +31,8 @@ public class TransferAssignmentRepositoryTest {
     private FileRepository fileRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ChatRepository chatRepository;
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
@@ -49,11 +53,16 @@ public class TransferAssignmentRepositoryTest {
                 .build();
         userRepository.save(user);
 
+        Chat chat = Chat.builder()
+                .chatName("test").build();
+        chatRepository.save(chat);
+
         Assignment assignment = Assignment.builder()
                 .fileId(file.getFileId())
                 .category(Category.SWIFT_PHYSICAL)
                 .details("Details")
                 .status(AssignmentStatus.IN_REVIEW)
+                .chatId(chat.getChatId())
                 .build();
         assignment.setCreatedBy(user);
 
