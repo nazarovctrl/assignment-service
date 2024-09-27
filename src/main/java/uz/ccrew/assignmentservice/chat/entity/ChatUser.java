@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.chat.entity;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.entity.Auditable;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.base.Auditable;
 
 import lombok.*;
 import jakarta.persistence.*;

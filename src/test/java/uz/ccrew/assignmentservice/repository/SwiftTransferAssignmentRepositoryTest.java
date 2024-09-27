@@ -1,13 +1,19 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.enums.*;
-import uz.ccrew.assignmentservice.entity.*;
+import uz.ccrew.assignmentservice.assignment.*;
+import uz.ccrew.assignmentservice.assignment.entity.SwiftTransferAssignment;
+import uz.ccrew.assignmentservice.assignment.entity.TransferAssignment;
+import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
+import uz.ccrew.assignmentservice.assignment.enums.Category;
+import uz.ccrew.assignmentservice.assignment.enums.SwiftReceiverType;
+import uz.ccrew.assignmentservice.assignment.enums.TransferType;
+import uz.ccrew.assignmentservice.assignment.repository.SwiftTransferAssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.TransferAssignmentRepository;
 import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.file.FileRepository;
-import uz.ccrew.assignmentservice.assignment.Assignment;
+import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
-import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -15,6 +21,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.user.UserRepository;
+import uz.ccrew.assignmentservice.user.UserRole;
 
 import java.util.UUID;
 import java.time.LocalDateTime;

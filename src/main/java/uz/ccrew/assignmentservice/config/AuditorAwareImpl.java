@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.config;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.util.AuthUtil;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.base.AuthUtil;
 
 import org.springframework.stereotype.Component;
 import org.springframework.data.domain.AuditorAware;

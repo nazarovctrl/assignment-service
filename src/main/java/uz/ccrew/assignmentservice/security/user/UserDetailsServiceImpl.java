@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.security.user;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.repository.UserRepository;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

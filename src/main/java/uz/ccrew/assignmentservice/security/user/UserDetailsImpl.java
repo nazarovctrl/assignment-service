@@ -1,6 +1,6 @@
 package uz.ccrew.assignmentservice.security.user;
 
-import uz.ccrew.assignmentservice.entity.User;
+import uz.ccrew.assignmentservice.user.User;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;

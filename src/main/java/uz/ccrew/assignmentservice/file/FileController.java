@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.file;
 
-import uz.ccrew.assignmentservice.dto.Response;
-import uz.ccrew.assignmentservice.dto.ResponseMaker;
+import uz.ccrew.assignmentservice.base.dto.Response;
+import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
 import uz.ccrew.assignmentservice.file.service.FileService;
 
 import lombok.RequiredArgsConstructor;

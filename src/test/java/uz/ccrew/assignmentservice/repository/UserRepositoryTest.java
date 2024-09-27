@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.exp.NotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import uz.ccrew.assignmentservice.user.UserRepository;
 
 import java.util.Optional;
 import java.time.LocalDateTime;

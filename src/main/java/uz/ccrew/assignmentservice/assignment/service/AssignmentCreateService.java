@@ -1,8 +1,8 @@
 package uz.ccrew.assignmentservice.assignment.service;
 
-import uz.ccrew.assignmentservice.entity.RequisiteAssignment;
-import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
-import uz.ccrew.assignmentservice.enums.PaymentType;
+import uz.ccrew.assignmentservice.assignment.entity.RequisiteAssignment;
+import uz.ccrew.assignmentservice.assignment.dto.AssignmentCreateDTO;
+import uz.ccrew.assignmentservice.payment.PaymentType;
 
 public interface AssignmentCreateService {
 

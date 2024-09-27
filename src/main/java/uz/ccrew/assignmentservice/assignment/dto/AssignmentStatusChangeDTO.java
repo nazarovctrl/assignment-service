@@ -1,6 +1,6 @@
 package uz.ccrew.assignmentservice.assignment.dto;
 
-import uz.ccrew.assignmentservice.enums.AssignmentStatus;
+import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 
 import jakarta.validation.constraints.NotNull;
 
