@@ -1,13 +1,13 @@
 package uz.ccrew.assignmentservice.user.service.impl;
 
 import uz.ccrew.assignmentservice.user.User;
-import uz.ccrew.assignmentservice.user.service.UserService;
 import uz.ccrew.assignmentservice.base.AuthUtil;
-import uz.ccrew.assignmentservice.user.dto.UserDTO;
 import uz.ccrew.assignmentservice.user.UserMapper;
-import uz.ccrew.assignmentservice.user.dto.UserUpdateDTO;
-import uz.ccrew.assignmentservice.exp.AlreadyExistException;
+import uz.ccrew.assignmentservice.user.dto.UserDTO;
 import uz.ccrew.assignmentservice.user.UserRepository;
+import uz.ccrew.assignmentservice.user.dto.UserUpdateDTO;
+import uz.ccrew.assignmentservice.user.service.UserService;
+import uz.ccrew.assignmentservice.exp.AlreadyExistException;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;

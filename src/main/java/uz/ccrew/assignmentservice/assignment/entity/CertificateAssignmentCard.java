@@ -1,8 +1,9 @@
 package uz.ccrew.assignmentservice.assignment.entity;
 
+import uz.ccrew.assignmentservice.base.Auditable;
+
 import lombok.*;
 import jakarta.persistence.*;
-import uz.ccrew.assignmentservice.base.Auditable;
 
 import java.util.Objects;
 import java.io.Serializable;

@@ -2,9 +2,9 @@ package uz.ccrew.assignmentservice.assignment.entity;
 
 import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.user.User;
-import uz.ccrew.assignmentservice.assignment.enums.Category;
-import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.base.Auditable;
+import uz.ccrew.assignmentservice.chat.entity.Chat;
+import uz.ccrew.assignmentservice.assignment.enums.Category;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 
 import lombok.*;

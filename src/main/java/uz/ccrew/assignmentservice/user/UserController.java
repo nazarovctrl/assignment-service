@@ -1,10 +1,10 @@
 package uz.ccrew.assignmentservice.user;
 
-import uz.ccrew.assignmentservice.base.dto.Response;
 import uz.ccrew.assignmentservice.user.dto.UserDTO;
+import uz.ccrew.assignmentservice.base.dto.Response;
 import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
-import uz.ccrew.assignmentservice.user.service.UserService;
 import uz.ccrew.assignmentservice.user.dto.UserUpdateDTO;
+import uz.ccrew.assignmentservice.user.service.UserService;
 
 import org.springframework.data.domain.Page;
 import io.swagger.v3.oas.annotations.tags.Tag;

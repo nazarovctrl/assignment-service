@@ -1,11 +1,11 @@
 package uz.ccrew.assignmentservice.auth;
 
-import uz.ccrew.assignmentservice.auth.service.AuthService;
-import uz.ccrew.assignmentservice.base.dto.Response;
 import uz.ccrew.assignmentservice.user.dto.UserDTO;
-import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
+import uz.ccrew.assignmentservice.base.dto.Response;
 import uz.ccrew.assignmentservice.auth.dto.LoginDTO;
 import uz.ccrew.assignmentservice.auth.dto.RegisterDTO;
+import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
+import uz.ccrew.assignmentservice.auth.service.AuthService;
 import uz.ccrew.assignmentservice.auth.dto.LoginResponseDTO;
 
 import jakarta.validation.Valid;

@@ -1,17 +1,17 @@
 package uz.ccrew.assignmentservice.auth.service.impl;
 
-import uz.ccrew.assignmentservice.auth.service.AuthService;
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.base.AuthUtil;
 import uz.ccrew.assignmentservice.user.UserRole;
+import uz.ccrew.assignmentservice.user.UserMapper;
 import uz.ccrew.assignmentservice.user.dto.UserDTO;
 import uz.ccrew.assignmentservice.auth.dto.LoginDTO;
-import uz.ccrew.assignmentservice.user.UserMapper;
+import uz.ccrew.assignmentservice.user.UserRepository;
 import uz.ccrew.assignmentservice.auth.dto.RegisterDTO;
 import uz.ccrew.assignmentservice.security.jwt.JWTService;
-import uz.ccrew.assignmentservice.exp.AlreadyExistException;
-import uz.ccrew.assignmentservice.user.UserRepository;
+import uz.ccrew.assignmentservice.auth.service.AuthService;
 import uz.ccrew.assignmentservice.auth.dto.LoginResponseDTO;
+import uz.ccrew.assignmentservice.exp.AlreadyExistException;
 import uz.ccrew.assignmentservice.security.user.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;

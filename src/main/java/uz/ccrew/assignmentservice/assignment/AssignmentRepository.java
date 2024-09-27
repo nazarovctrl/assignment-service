@@ -1,5 +1,6 @@
 package uz.ccrew.assignmentservice.assignment;
 
+import uz.ccrew.assignmentservice.base.BasicRepository;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO;
@@ -8,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import uz.ccrew.assignmentservice.base.BasicRepository;
 
 import java.util.Optional;
 

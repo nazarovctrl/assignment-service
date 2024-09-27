@@ -1,9 +1,10 @@
 package uz.ccrew.assignmentservice.assignment.entity;
 
+import uz.ccrew.assignmentservice.base.Auditable;
+
 import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
-import uz.ccrew.assignmentservice.base.Auditable;
 
 import java.time.LocalDate;
 
