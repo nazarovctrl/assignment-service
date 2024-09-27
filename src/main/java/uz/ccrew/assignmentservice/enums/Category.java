@@ -6,19 +6,19 @@ import java.util.List;
 
 @Getter
 public enum Category {
-    SWIFT_PHYSICAL(List.of("receiverCountry", "accountNumber", "swiftCode", "amount", "receiverFullName", "details", "fileId","chat_id"),
+    SWIFT_PHYSICAL(List.of("receiverCountry", "accountNumber", "swiftCode", "amount", "receiverFullName", "details", "fileId"),
             "swiftPhysical", "SWIFT transfers for physical"),
-    SWIFT_LEGAL(List.of("receiverCountry", "accountNumber", "swiftCode", "legalPersonAddress", "receiverOrganizationName", "fileId", "amount", "details"),
+    SWIFT_LEGAL(List.of("receiverCountry", "accountNumber", "swiftCode", "legalAddress", "receiverOrganizationName", "amount", "details", "fileId"),
             "swiftForLegalEntities", "SWIFT transfers for legal entities"),
-    INTERNATIONAL_TRANSFER(List.of("type", "receiverCountry", "receiverFullName", "phoneNumber", "details", "fileId"),
+    INTERNATIONAL_TRANSFER(List.of("transferType", "receiverCountry", "receiverFullName", "receiverPhoneNumber", "details", "fileId"),
             "internationalTransfers", "International transfers"),
-    CERTIFICATES(List.of("accountNumber", "cardNumber", "beginDate", "endDate"),
+    CERTIFICATES(List.of("accountNumbers", "cardNumbers", "beginDate", "endDate", "details"),
             "certificates", "Certificates transfers"),
-    CARD_REFRESH(List.of("identityFileId", "fileId", "details"),
+    CARD_REFRESH(List.of("fileId", "identityFileId", "details"),
             "cardRefresh", "Card reissue"),
-    DISPUTE(List.of("fileId", "screenFileId", "details"),
+    DISPUTE(List.of("fileId", "photoIds", "details"),
             "dispute", "Dispute transfers"),
-    OTHERS(List.of("others"), "others", "others");
+    OTHERS(List.of("details"), "others", "others");
 
     private final List<String> columns;
     private final String fullForm;

@@ -1,4 +1,4 @@
-package uz.ccrew.assignmentservice.assignment;
+package uz.ccrew.assignmentservice.assignment.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;

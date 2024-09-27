@@ -7,8 +7,11 @@ import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.enums.PaymentType;
 import uz.ccrew.assignmentservice.file.FileRepository;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
+import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
+
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;

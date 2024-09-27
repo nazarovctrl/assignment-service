@@ -1,8 +1,10 @@
-package uz.ccrew.assignmentservice.entity;
+package uz.ccrew.assignmentservice.assignment;
 
 import uz.ccrew.assignmentservice.file.File;
+import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.chat.entity.Chat;
+import uz.ccrew.assignmentservice.entity.Auditable;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 
 import lombok.*;
@@ -22,7 +24,7 @@ import java.util.UUID;
 public class Assignment extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long assigmentId;
+    private Long assignmentId;
 
     @Column(name = "file_id", nullable = false)
     private UUID fileId;

@@ -1,6 +1,6 @@
 package uz.ccrew.assignmentservice.mapper;
 
-import uz.ccrew.assignmentservice.entity.Assignment;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class AssignmentMapper implements Mapper<AssignmentSummaryDTO, Assignment
     @Override
     public AssignmentSummaryDTO toDTO(Assignment assignment) {
         return AssignmentSummaryDTO.builder()
-                .assigmentId(assignment.getAssigmentId())
+                .assigmentId(assignment.getAssignmentId())
                 .category(assignment.getCategory())
                 .date(assignment.getCreatedOn())
                 .status(assignment.getStatus())

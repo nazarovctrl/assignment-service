@@ -1,5 +1,7 @@
 package uz.ccrew.assignmentservice.entity;
 
+import uz.ccrew.assignmentservice.assignment.Assignment;
+
 import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;

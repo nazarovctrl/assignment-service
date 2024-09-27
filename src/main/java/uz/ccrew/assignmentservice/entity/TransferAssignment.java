@@ -1,6 +1,7 @@
 package uz.ccrew.assignmentservice.entity;
 
 import uz.ccrew.assignmentservice.enums.TransferType;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "transfer_assignments")
-@Check(name = "transfer_assignments_c1", constraints = "type = 'SWIFT' and phone_number is null or type <> 'SWIFT' and phone_number is not null")
+@Check(name = "transfer_assignments_c1", constraints = "type = 'SWIFT' and receiver_phone_number is null or type <> 'SWIFT' and receiver_phone_number is not null")
 @Getter
 @Setter
 @Builder
@@ -30,7 +31,7 @@ public class TransferAssignment extends Auditable {
     private String receiverFullName;
 
     @Column
-    private String phoneNumber;
+    private String receiverPhoneNumber;
 
     @Column(nullable = false)
     private Long amount;

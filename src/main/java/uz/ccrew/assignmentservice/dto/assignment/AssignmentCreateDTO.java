@@ -1,23 +1,40 @@
 package uz.ccrew.assignmentservice.dto.assignment;
 
-import lombok.Builder;
+import uz.ccrew.assignmentservice.enums.TransferType;
 
+import lombok.Builder;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 import java.time.LocalDate;
 
 @Builder
-public record AssignmentCreateDTO(String category,
+public record AssignmentCreateDTO(@NotBlank(message = "Invalid assignment category")
+                                  String category,
                                   String fileId,
+                                  @NotBlank(message = "Invalid details")
                                   String details,
+                                  String accountNumberToPay,
+                                  String cardNumberToPay,
+                                  //swift
                                   String receiverCountry,
-                                  String fullName,
-                                  String phoneNumber,
-                                  Long amount,
                                   String accountNumber,
                                   String swiftCode,
-                                  String legalPersonAddress,
+                                  Long amount,
+                                  String receiverFullName,
+                                  //swift legal
+                                  String legalAddress,
                                   String receiverOrganizationName,
-                                  String transferType,
-                                  String cardNumber,
-                                  String chatId,
+                                  //international transfer
+                                  TransferType transferType,
+                                  String receiverPhoneNumber,
+                                  //certificate
+                                  List<String> accountNumbers,
+                                  List<String> cardNumbers,
                                   LocalDate beginDate,
-                                  LocalDate endDate) {}
+                                  LocalDate endDate,
+                                  //card refresh
+                                  String identityFileId,
+                                  //dispute
+                                  List<String> photoIds) {
+}

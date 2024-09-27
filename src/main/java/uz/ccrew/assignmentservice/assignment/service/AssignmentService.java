@@ -1,12 +1,13 @@
-package uz.ccrew.assignmentservice.service;
+package uz.ccrew.assignmentservice.assignment.service;
 
-import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
-import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
+import uz.ccrew.assignmentservice.assignment.dto.AssignmentCancelDTO;
+import uz.ccrew.assignmentservice.assignment.dto.WithdrawDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentColumnsDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
-import uz.ccrew.assignmentservice.assignment.AssignmentStatusChangeDTO;
+import uz.ccrew.assignmentservice.assignment.dto.AssignmentCompleteDTO;
+import uz.ccrew.assignmentservice.assignment.dto.AssignmentStatusChangeDTO;
 
 import org.springframework.data.domain.Page;
 
@@ -17,11 +18,13 @@ public interface AssignmentService {
 
     AssignmentDetailedDTO getDetailed(Long id);
 
-    AssignmentColumnsDTO getColumns(String category);
-
     Map<String, String> getAllCategories();
 
-    AssignmentCreateDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO);
+    AssignmentColumnsDTO getColumns(String category);
+
+    AssignmentSummaryDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO);
+
+    AssignmentSummaryDTO withdrawAgain(WithdrawDTO dto);
 
     void cancel(AssignmentCancelDTO dto);
 
