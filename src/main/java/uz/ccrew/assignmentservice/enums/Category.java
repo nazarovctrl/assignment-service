@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 public enum Category {
-    SWIFT_PHYSICAL(List.of("receiverCountry", "accountNumber", "swiftCode", "amount", "receiverFullName", "details", "fileId"),
+    SWIFT_PHYSICAL(List.of("receiverCountry", "accountNumber", "swiftCode", "amount", "receiverFullName", "details", "fileId","chat_id"),
             "swiftPhysical", "SWIFT transfers for physical"),
     SWIFT_LEGAL(List.of("receiverCountry", "accountNumber", "swiftCode", "legalPersonAddress", "receiverOrganizationName", "fileId", "amount", "details"),
             "swiftForLegalEntities", "SWIFT transfers for legal entities"),

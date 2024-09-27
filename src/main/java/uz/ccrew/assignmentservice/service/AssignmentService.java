@@ -21,11 +21,11 @@ public interface AssignmentService {
 
     Map<String, String> getAllCategories();
 
+    AssignmentCreateDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO);
+
     void cancel(AssignmentCancelDTO dto);
 
     void changeStatus(AssignmentStatusChangeDTO dto);
 
     void complete(AssignmentCompleteDTO dto);
-
-    AssignmentCreateDTO createAssignment(AssignmentCreateDTO assignmentCreateDTO);
 }
