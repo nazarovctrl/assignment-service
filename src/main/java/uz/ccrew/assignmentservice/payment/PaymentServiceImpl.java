@@ -66,7 +66,7 @@ public class PaymentServiceImpl implements PaymentService {
             JsonObject jsonObject = gson.fromJson(response.getBody(), JsonObject.class);
 
             return jsonObject.get("data").getAsJsonObject().get("paymentId").getAsString();
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class PaymentServiceImpl implements PaymentService {
             JsonObject jsonObject = gson.fromJson(response.getBody(), JsonObject.class);
 
             return jsonObject.get("data").getAsJsonObject().get("paymentId").getAsString();
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             return null;
         }
     }

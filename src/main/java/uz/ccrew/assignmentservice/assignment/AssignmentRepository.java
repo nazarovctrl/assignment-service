@@ -1,6 +1,5 @@
-package uz.ccrew.assignmentservice.repository;
+package uz.ccrew.assignmentservice.assignment;
 
-import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
 
@@ -8,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import uz.ccrew.assignmentservice.repository.BasicRepository;
 
 import java.util.Optional;
 
@@ -19,7 +19,7 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
 
     @Query("""
            select new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
-                  a.assigmentId,
+                  a.assignmentId,
                   a.category,
                   a.createdOn,
                   a.status,
@@ -28,8 +28,8 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
                   a.note)
              from Assignment a
              left join RequisiteAssignment r
-               on a.assigmentId = r.assignmentId
-            where a.assigmentId = :assigmentId
+               on a.assignmentId = r.assignmentId
+            where a.assignmentId = :assigmentId
               and a.createdBy.id = :userId
             """)
     Optional<AssignmentDetailedDTO> findAssignmentDetailedByIdAndUserId(@Param("userId") Long userId, @Param("assigmentId") Long assigmentId);

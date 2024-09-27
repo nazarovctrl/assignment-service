@@ -1,6 +1,7 @@
 package uz.ccrew.assignmentservice.entity;
 
 import uz.ccrew.assignmentservice.file.File;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -30,5 +31,5 @@ public class CardRefreshAssignment extends Auditable {
 
     @OneToOne
     @JoinColumn(name = "identity_file_id", foreignKey = @ForeignKey(name = "card_refresh_assignments_f2"), insertable = false, updatable = false)
-    private File file;
+    private File identityFile;
 }

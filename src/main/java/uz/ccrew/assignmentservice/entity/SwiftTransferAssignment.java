@@ -9,8 +9,8 @@ import org.hibernate.annotations.Check;
 @Entity
 @Table(name = "swift_transfer_assignments")
 @Check(name = "swift_transfer_assignments_c1", constraints = """ 
-        receiver_type = 'LEGAL' and legal_person_address is not null and receiver_organization_name is not null
-        or receiver_type = 'PHYSICAL' and legal_person_address is null and receiver_organization_name is null
+        receiver_type = 'LEGAL' and legal_address is not null and receiver_organization_name is not null
+        or receiver_type = 'PHYSICAL' and legal_address is null and receiver_organization_name is null
         """)
 @Getter
 @Setter
@@ -33,7 +33,7 @@ public class SwiftTransferAssignment extends Auditable {
     private String swiftCode;
 
     @Column
-    private String legalPersonAddress;
+    private String legalAddress;
 
     @Column
     private String receiverOrganizationName;

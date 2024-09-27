@@ -1,9 +1,9 @@
-package uz.ccrew.assignmentservice.assignment;
+package uz.ccrew.assignmentservice.assignment.service;
 
-import uz.ccrew.assignmentservice.entity.Assignment;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
-import uz.ccrew.assignmentservice.repository.AssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;

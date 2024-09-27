@@ -5,12 +5,13 @@ import uz.ccrew.assignmentservice.entity.User;
 import uz.ccrew.assignmentservice.enums.UserRole;
 import uz.ccrew.assignmentservice.enums.Category;
 import uz.ccrew.assignmentservice.chat.entity.Chat;
-import uz.ccrew.assignmentservice.entity.Assignment;
 import uz.ccrew.assignmentservice.enums.TransferType;
 import uz.ccrew.assignmentservice.file.FileRepository;
+import uz.ccrew.assignmentservice.assignment.Assignment;
 import uz.ccrew.assignmentservice.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.entity.TransferAssignment;
 import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
+import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
 
 import org.junit.jupiter.api.Test;
 import jakarta.transaction.Transactional;
@@ -95,7 +96,7 @@ public class TransferAssignmentRepositoryTest {
                 .type(TransferType.SWIFT)
                 .receiverCountry("Uzb")
                 .receiverFullName("Azimjon")
-                .phoneNumber("1234123541")
+                .receiverPhoneNumber("1234123541")
                 .assignment(assignment)
                 .build();
 
