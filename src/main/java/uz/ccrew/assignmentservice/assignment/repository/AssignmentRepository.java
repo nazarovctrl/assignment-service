@@ -1,4 +1,4 @@
-package uz.ccrew.assignmentservice.assignment;
+package uz.ccrew.assignmentservice.assignment.repository;
 
 import uz.ccrew.assignmentservice.base.BasicRepository;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
@@ -19,7 +19,7 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
     @Query("""
-           select new uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO(
+           select new uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO(
                   a.assignmentId,
                   a.category,
                   a.createdOn,

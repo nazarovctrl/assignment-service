@@ -9,7 +9,7 @@ import uz.ccrew.assignmentservice.user.UserRepository;
 import uz.ccrew.assignmentservice.assignment.enums.Category;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
-import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.entity.CertificateAssignment;
 import uz.ccrew.assignmentservice.assignment.repository.CertificateAssignmentRepository;

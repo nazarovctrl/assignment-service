@@ -12,7 +12,7 @@ import uz.ccrew.assignmentservice.assignment.enums.Category;
 import uz.ccrew.assignmentservice.assignment.dto.WithdrawDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentMapper;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
-import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.dto.AssignmentCancelDTO;

@@ -2,7 +2,6 @@ package uz.ccrew.assignmentservice.repository;
 
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.file.File;
-import uz.ccrew.assignmentservice.assignment.*;
 import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.chat.entity.Chat;
 import uz.ccrew.assignmentservice.user.UserRepository;
@@ -15,6 +14,7 @@ import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.enums.SwiftReceiverType;
 import uz.ccrew.assignmentservice.assignment.entity.TransferAssignment;
 import uz.ccrew.assignmentservice.assignment.entity.SwiftTransferAssignment;
+import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.repository.TransferAssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.repository.SwiftTransferAssignmentRepository;
 

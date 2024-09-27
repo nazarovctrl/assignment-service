@@ -9,9 +9,9 @@ import uz.ccrew.assignmentservice.file.FileRepository;
 import uz.ccrew.assignmentservice.assignment.enums.Category;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
-import uz.ccrew.assignmentservice.assignment.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.entity.CardRefreshAssignment;
+import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.repository.CardRefreshAssignmentRepository;
 
 import org.junit.jupiter.api.Test;
