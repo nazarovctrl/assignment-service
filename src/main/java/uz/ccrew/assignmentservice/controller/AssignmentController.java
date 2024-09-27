@@ -5,6 +5,7 @@ import uz.ccrew.assignmentservice.dto.ResponseMaker;
 import uz.ccrew.assignmentservice.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.AssignmentCancelDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentCompleteDTO;
+import uz.ccrew.assignmentservice.dto.assignment.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentColumnsDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentSummaryDTO;
 import uz.ccrew.assignmentservice.dto.assignment.AssignmentDetailedDTO;
@@ -55,6 +56,14 @@ public class AssignmentController {
         return ResponseMaker.ok(categories);
     }
 
+    @PostMapping("/create/assignment")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @Operation(summary = "Create assignment")
+    public ResponseEntity<Response<AssignmentCreateDTO>> createAssignment(@RequestBody @Valid AssignmentCreateDTO assignmentCreateDTO) {
+        AssignmentCreateDTO result = assignmentService.createAssignment(assignmentCreateDTO);
+        return ResponseMaker.ok(result);
+    }
+
     @GetMapping("/get-columns/{category}")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get all columns for category")
@@ -62,7 +71,6 @@ public class AssignmentController {
         AssignmentColumnsDTO result = assignmentService.getColumns(category);
         return ResponseMaker.ok(result);
     }
-
 
     @PatchMapping("/cancel")
     @PreAuthorize("hasAuthority('EMPLOYEE')")
