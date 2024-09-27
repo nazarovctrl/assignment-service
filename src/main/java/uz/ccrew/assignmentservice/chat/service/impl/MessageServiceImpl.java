@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.chat.service.impl;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.util.AuthUtil;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.base.AuthUtil;
 import uz.ccrew.assignmentservice.chat.entity.Message;
 import uz.ccrew.assignmentservice.chat.entity.ChatUser;
 import uz.ccrew.assignmentservice.chat.service.MessageService;

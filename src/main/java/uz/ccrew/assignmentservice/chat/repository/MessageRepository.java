@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.chat.repository;
 
 import uz.ccrew.assignmentservice.chat.entity.Message;
-import uz.ccrew.assignmentservice.repository.BasicRepository;
+import uz.ccrew.assignmentservice.base.BasicRepository;
 
 import java.util.UUID;
 

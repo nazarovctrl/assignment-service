@@ -1,8 +1,7 @@
 package uz.ccrew.assignmentservice.payment;
 
-import uz.ccrew.assignmentservice.enums.PaymentType;
 import uz.ccrew.assignmentservice.exp.BadRequestException;
-import uz.ccrew.assignmentservice.entity.RequisiteAssignment;
+import uz.ccrew.assignmentservice.assignment.entity.RequisiteAssignment;
 
 import com.google.gson.Gson;
 import org.springframework.http.*;

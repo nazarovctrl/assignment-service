@@ -1,6 +1,6 @@
 package uz.ccrew.assignmentservice.file;
 
-import uz.ccrew.assignmentservice.mapper.Mapper;
+import uz.ccrew.assignmentservice.base.Mapper;
 
 import org.springframework.stereotype.Component;
 

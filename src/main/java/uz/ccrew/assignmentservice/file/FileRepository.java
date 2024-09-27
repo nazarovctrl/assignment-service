@@ -1,6 +1,6 @@
 package uz.ccrew.assignmentservice.file;
 
-import uz.ccrew.assignmentservice.repository.BasicRepository;
+import uz.ccrew.assignmentservice.base.BasicRepository;
 
 import java.util.UUID;
 

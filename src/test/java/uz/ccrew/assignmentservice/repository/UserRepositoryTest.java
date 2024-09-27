@@ -1,7 +1,8 @@
 package uz.ccrew.assignmentservice.repository;
 
-import uz.ccrew.assignmentservice.entity.User;
-import uz.ccrew.assignmentservice.enums.UserRole;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.user.UserRole;
+import uz.ccrew.assignmentservice.user.UserRepository;
 import uz.ccrew.assignmentservice.exp.NotFoundException;
 
 import org.junit.jupiter.api.Test;

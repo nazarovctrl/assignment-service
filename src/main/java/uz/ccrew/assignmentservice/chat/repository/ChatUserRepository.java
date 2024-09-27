@@ -1,7 +1,7 @@
 package uz.ccrew.assignmentservice.chat.repository;
 
 import uz.ccrew.assignmentservice.chat.entity.ChatUser;
-import uz.ccrew.assignmentservice.repository.BasicRepository;
+import uz.ccrew.assignmentservice.base.BasicRepository;
 
 import org.springframework.data.jpa.repository.Query;
 
