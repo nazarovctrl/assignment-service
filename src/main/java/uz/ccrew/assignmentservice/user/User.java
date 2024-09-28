@@ -20,6 +20,7 @@ public class User extends Auditable {
     private Long id;
     @Column(nullable = false)
     private String login;
+
     @Column(nullable = false)
     private String password;
 
@@ -29,4 +30,10 @@ public class User extends Auditable {
 
     @Column(nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private LocalDateTime credentialsModifiedDate;
+
+    @Column(nullable = true)
+    private String fullName;
+
+    @Column(nullable = true)
+    private String email;
 }

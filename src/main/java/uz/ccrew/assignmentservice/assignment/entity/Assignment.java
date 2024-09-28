@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
 
 import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "assignments", indexes = @Index(name = "assigment_i1", columnList = "created_by"))
@@ -52,6 +53,8 @@ public class Assignment extends Auditable {
     @Column(name = "chat_id", nullable = false)
     private UUID chatId;
 
+    @Column
+    private LocalDateTime progressStartedOn;
 
     @OneToOne
     @JoinColumn(name = "file_id", foreignKey = @ForeignKey(name = "assignments_f1"), insertable = false, updatable = false)

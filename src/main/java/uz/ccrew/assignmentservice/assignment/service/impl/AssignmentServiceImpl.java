@@ -1,5 +1,6 @@
 package uz.ccrew.assignmentservice.assignment.service.impl;
 
+import uz.ccrew.assignmentservice.assignment.AssignmentFullDTO;
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.base.AuthUtil;
@@ -10,14 +11,15 @@ import uz.ccrew.assignmentservice.exp.NotFoundException;
 import uz.ccrew.assignmentservice.payment.PaymentService;
 import uz.ccrew.assignmentservice.exp.BadRequestException;
 import uz.ccrew.assignmentservice.assignment.enums.Category;
+import uz.ccrew.assignmentservice.chat.service.MessageService;
 import uz.ccrew.assignmentservice.assignment.AssignmentMapper;
 import uz.ccrew.assignmentservice.chat.service.ChatUserService;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
-import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.entity.RequisiteAssignment;
+import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentCreateService;
 import uz.ccrew.assignmentservice.assignment.repository.RequisiteAssignmentRepository;
 
@@ -27,6 +29,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AssignmentServiceImpl implements AssignmentService {
     private final AuthUtil authUtil;
+    private final MessageService messageService;
     private final PaymentService paymentService;
     private final UserRepository userRepository;
     private final ChatUserService chatUserService;
@@ -55,13 +59,19 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public AssignmentDetailedDTO getDetailed(Long id) {
+    public AssignmentDetailedDTO getDetailed(Long assignmentId) {
         User user = authUtil.loadLoggedUser();
-        Optional<AssignmentDetailedDTO> detailedDTO = assignmentRepository.findAssignmentDetailedByIdAndUserId(user.getId(), id);
-        if (detailedDTO.isEmpty()) {
+        Assignment assignment = assignmentRepository.loadById(assignmentId, "Assignment not found");
+
+        Optional<AssignmentDetailedDTO> optional = assignmentRepository.findAssignmentDetailedByIdAndUserId(user.getId(), assignmentId);
+        if (optional.isEmpty()) {
             throw new NotFoundException("Detailed Assignment Not Found");
         }
-        return detailedDTO.get();
+
+        AssignmentDetailedDTO detailedDTO = optional.get();
+        detailedDTO.setComments(messageService.getList(assignment.getChat().getChatId()));
+
+        return detailedDTO;
     }
 
     @Override
@@ -182,10 +192,15 @@ public class AssignmentServiceImpl implements AssignmentService {
             if (!dto.status().equals(AssignmentStatus.IN_PROGRESS)) {
                 throw new BadRequestException("Employee can change assignment status only to IN_PROGRESS");
             }
+            assignment.setProgressStartedOn(LocalDateTime.now());
+
             notificationService.sendNotification(assignment.getCreatedBy().getLogin(), "Ваше поручение в процессе подготовки");
         } else {
             if (!assignment.getStatus().equals(AssignmentStatus.CANCELLED)) {
                 throw new BadRequestException("Manager can't change assigment status which status is not CANCELLED");
+            }
+            if (dto.status().equals(AssignmentStatus.IN_PROGRESS)) {
+                assignment.setProgressStartedOn(LocalDateTime.now());
             }
         }
         assignment.setStatus(dto.status());
@@ -232,4 +247,36 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         chatUserService.addUserToChat(employee, assignment.getChat());
     }
+
+    @Override
+    public Page<AssignmentShortDTO> getList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdOn").descending());
+
+        Page<AssignmentShortDTO> assignments = assignmentRepository.getAssigmentShortPage(pageable);
+
+        return new PageImpl<>(assignments.getContent(), pageable, assignments.getTotalElements());
+    }
+
+    @Override
+    public AssignmentFullDTO getFull(Long assignmentId) {
+        Assignment assignment = assignmentRepository.loadById(assignmentId, "Assignment not found");
+        User user = assignment.getCreatedBy();
+
+        List<String> fileUrls = new ArrayList<>();
+
+
+        return AssignmentFullDTO.builder()
+                .category(assignment.getCategory())
+                .userId(user.getId())
+                .fullName(user.getFullName())
+                .phoneNumber(user.getLogin())
+                .email(user.getEmail())
+                .assignmentId(assignmentId)
+                .createdOn(assignment.getCreatedOn())
+                .progressStartedOn(assignment.getProgressStartedOn())
+                .fileUrls(fileUrls)
+                .status(assignment.getStatus())
+                .build();
+    }
+
 }
