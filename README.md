@@ -1,4 +1,4 @@
-# assigment-service
+# assignment-service
 
 
 ## Requirements
@@ -18,9 +18,9 @@
 To run the application, ensure that Docker is installed on your machine.
 Then, execute the commands in the specified order.
 
-1. **Create assigment-service folder in your machine**
+1. **Create assignment-service folder in your machine**
 
-2. **Create and copy the .env file, and get docker-compose.yml from GitHub link below and put them into the assigment-service folder**
+2. **Create and copy the .env file, and get docker-compose.yml from GitHub link below and put them into the assignment-service folder**
 
    .env file content
 
@@ -35,18 +35,18 @@ Then, execute the commands in the specified order.
     ```
    docker-compose.yml link
 
-   https://github.com/nazarovctrl/assigment-service/blob/master/docker-compose.yml
+   https://github.com/nazarovctrl/assignment-service/blob/master/docker-compose.yml
 
 3. **Pull the Docker Image**
 
     ```sh
-   docker pull nazarovv2/assigment-service:latest
+   docker pull nazarovv2/assignment-service:latest
     ```
 
 4. **Start the Application**
 
     ```sh
-   docker-compose up -d assigment-service-app
+   docker-compose up -d assignment-service-app
    ```
 5. **Link for the application**
 
@@ -64,10 +64,10 @@ Then, execute the commands in the specified order.
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/nazarovctrl/assigment-service.git
-    cd assigment-service
+    git clone https://github.com/nazarovctrl/assignment-service.git
+    cd assignment-service
     ```
-2. **Paste the .env file into assigment-service folder**
+2. **Paste the .env file into assignment-service folder**
 
    .env file content
 
@@ -93,7 +93,7 @@ Then, execute the commands in the specified order.
    To run the application, make sure you have Java 21 installed
 
     ```sh
-    java -jar target/assigment-service-1.0.jar
+    java -jar target/assignment-service-1.0.jar
     ```
 5. **Link for the application**
 
