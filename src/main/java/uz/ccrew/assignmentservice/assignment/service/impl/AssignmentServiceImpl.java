@@ -150,6 +150,11 @@ public class AssignmentServiceImpl implements AssignmentService {
         if (!assignment.getStatus().equals(AssignmentStatus.ACCEPTED)) {
             throw new BadRequestException("You can't cancel assigment which status is not ACCEPTED");
         }
+        User user = authUtil.loadLoggedUser();
+        if (assignment.getEmployeeId().equals(user.getId())) {
+            throw new BadRequestException("You cant change the assignment status. Because you are not assigned employee");
+        }
+
         RequisiteAssignment requisite = requisiteAssignmentRepository.loadById(dto.assignmentId(), "Assigment requisite not found");
 
         paymentService.reverse(requisite.getPaymentId());
@@ -168,6 +173,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         User user = authUtil.loadLoggedUser();
         if (user.getRole().equals(UserRole.EMPLOYEE)) {
+            if (assignment.getEmployeeId().equals(user.getId())) {
+                throw new BadRequestException("You cant change the assignment status. Because you are not assigned employee");
+            }
             if (!assignment.getStatus().equals(AssignmentStatus.ACCEPTED)) {
                 throw new BadRequestException("Employee can't change assigment status which status is not ACCEPTED");
             }
@@ -190,6 +198,11 @@ public class AssignmentServiceImpl implements AssignmentService {
         if (!assignment.getStatus().equals(AssignmentStatus.IN_PROGRESS)) {
             throw new BadRequestException("Assignment can be complete only when status is IN_PROGRESS");
         }
+        User user = authUtil.loadLoggedUser();
+        if (assignment.getEmployeeId().equals(user.getId())) {
+            throw new BadRequestException("You cant change the assignment status, Because you are not assigned employee");
+        }
+
         assignment.setResponseFileId(UUID.fromString(dto.fileId()));
         assignment.setNote(dto.note());
         assignment.setStatus(AssignmentStatus.SUCCESS);
@@ -209,6 +222,9 @@ public class AssignmentServiceImpl implements AssignmentService {
             employee = userRepository.loadById(dto.employeeId(), "Employee not found");
             notificationService.sendNotification(employee.getLogin(), "У Вас новое поручение на исполнение");
         } else {
+            if (assignment.getEmployee() != null) {
+                throw new BadRequestException("The assignment already assigned to employee");
+            }
             employee = user;
         }
         assignment.setEmployeeId(employee.getId());
