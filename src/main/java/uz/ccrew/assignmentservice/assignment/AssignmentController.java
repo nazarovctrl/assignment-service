@@ -34,7 +34,7 @@ public class AssignmentController {
         return ResponseMaker.ok(result);
     }
 
-    @GetMapping("/detailed/{assignmentId}")
+    @GetMapping("/get-detailed/{assignmentId}")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "Get detailed assignment")
     public ResponseEntity<Response<AssignmentDetailedDTO>> getDetailed(@PathVariable("assignmentId") Long id) {
@@ -106,5 +106,20 @@ public class AssignmentController {
         return ResponseMaker.okMessage("Employee assigned");
     }
 
-    //TODO get list for employee and manager
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE','MANAGER')")
+    @Operation(summary = "Get list for EMPLOYEE and MANAGER")
+    public ResponseEntity<Response<Page<AssignmentShortDTO>>> getList(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                                      @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        Page<AssignmentShortDTO> result = assignmentService.getList(page, size);
+        return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/get-full/{assignmentId}")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE','MANAGER')")
+    @Operation(summary = "Get full info for EMPLOYEE and MANAGER")
+    public ResponseEntity<Response<AssignmentFullDTO>> getFull(@PathVariable("assignmentId") Long assignmentId) {
+        AssignmentFullDTO result = assignmentService.getFull(assignmentId);
+        return ResponseMaker.ok(result);
+    }
 }

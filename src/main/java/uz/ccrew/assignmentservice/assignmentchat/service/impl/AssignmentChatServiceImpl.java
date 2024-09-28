@@ -38,7 +38,6 @@ public class AssignmentChatServiceImpl implements AssignmentChatService {
         Assignment assignment = assignmentRepository.loadById(dto.assignmentId(), "Assignment not found");
         Chat chat = assignment.getChat();
 
-        messageService.sendMessage(chat.getChatId(), dto.content());
-        return null;
+        return messageService.sendMessage(chat.getChatId(), dto.content());
     }
 }

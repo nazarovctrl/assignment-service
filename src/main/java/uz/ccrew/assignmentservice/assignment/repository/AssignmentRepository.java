@@ -2,6 +2,7 @@ package uz.ccrew.assignmentservice.assignment.repository;
 
 import uz.ccrew.assignmentservice.base.BasicRepository;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
+import uz.ccrew.assignmentservice.assignment.dto.AssignmentShortDTO;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO;
 
@@ -19,21 +20,38 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
     Page<Assignment> findAllByCreatedBy_Id(Long userId, Pageable pageable);
 
     @Query("""
-           select new uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO(
-                  a.assignmentId,
-                  a.category,
-                  a.createdOn,
-                  a.status,
-                  r.paymentAmount,
-                  a.details,
-                  a.note)
-             from Assignment a
-             left join RequisiteAssignment r
-               on a.assignmentId = r.assignmentId
-            where a.assignmentId = :assigmentId
-              and a.createdBy.id = :userId
-            """)
+            select new uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO(
+                   a.assignmentId,
+                   a.category,
+                   a.createdOn,
+                   a.status,
+                   r.paymentAmount,
+                   a.details,
+                   a.note)
+              from Assignment a
+              left join RequisiteAssignment r
+                on a.assignmentId = r.assignmentId
+             where a.assignmentId = :assigmentId
+               and a.createdBy.id = :userId
+             """)
     Optional<AssignmentDetailedDTO> findAssignmentDetailedByIdAndUserId(@Param("userId") Long userId, @Param("assigmentId") Long assigmentId);
 
     List<Assignment> findAllByStatusAndModifiedOnLessThan(AssignmentStatus status, LocalDateTime dateTime);
+
+
+    @Query("""
+            select new uz.ccrew.assignmentservice.assignment.dto.AssignmentShortDTO(
+                   w.category,
+                   w.createdBy.id,
+                   w.createdBy.fullName,
+                   w.createdBy.login,
+                   w.assignmentId,
+                   w.createdOn,
+                   w.status,
+                   em)
+              from Assignment w
+              left join w.employee em
+             where w.status <> 'IN_REVIEW'
+            """)
+    Page<AssignmentShortDTO> getAssigmentShortPage(Pageable pageable);
 }
