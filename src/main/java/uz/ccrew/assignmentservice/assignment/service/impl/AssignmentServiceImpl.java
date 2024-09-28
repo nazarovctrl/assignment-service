@@ -1,10 +1,14 @@
 package uz.ccrew.assignmentservice.assignment.service.impl;
 
-import uz.ccrew.assignmentservice.assignment.AssignmentFullDTO;
+import uz.ccrew.assignmentservice.assignment.entity.CardRefreshAssignment;
+import uz.ccrew.assignmentservice.assignment.repository.CardRefreshAssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.DisputeAssignmentPhotoRepository;
+import uz.ccrew.assignmentservice.file.File;
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.base.AuthUtil;
 import uz.ccrew.assignmentservice.assignment.dto.*;
+import uz.ccrew.assignmentservice.file.FileRepository;
 import uz.ccrew.assignmentservice.payment.PaymentType;
 import uz.ccrew.assignmentservice.user.UserRepository;
 import uz.ccrew.assignmentservice.exp.NotFoundException;
@@ -15,6 +19,7 @@ import uz.ccrew.assignmentservice.chat.service.MessageService;
 import uz.ccrew.assignmentservice.assignment.AssignmentMapper;
 import uz.ccrew.assignmentservice.chat.service.ChatUserService;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
+import uz.ccrew.assignmentservice.assignment.AssignmentFullDTO;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentService;
@@ -37,13 +42,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AssignmentServiceImpl implements AssignmentService {
     private final AuthUtil authUtil;
+    private final FileRepository fileRepository;
     private final MessageService messageService;
     private final PaymentService paymentService;
     private final UserRepository userRepository;
     private final ChatUserService chatUserService;
     private final AssignmentMapper assignmentMapper;
+    private final DisputeAssignmentPhotoRepository disputeAssignmentPhotoRepository;
+    private final CardRefreshAssignmentRepository cardRefreshAssignmentRepository;
     private final NotificationService notificationService;
     private final AssignmentRepository assignmentRepository;
+    private final AssignmentPdfService assignmentPdfService;
     private final AssignmentCreateService assignmentCreateService;
     private final RequisiteAssignmentRepository requisiteAssignmentRepository;
 
@@ -262,21 +271,35 @@ public class AssignmentServiceImpl implements AssignmentService {
         Assignment assignment = assignmentRepository.loadById(assignmentId, "Assignment not found");
         User user = assignment.getCreatedBy();
 
-        List<String> fileUrls = new ArrayList<>();
+        List<UUID> fileIds = new ArrayList<>();
+        fileIds.add(assignment.getFileId());
 
+        if (assignment.getCategory().equals(Category.CARD_REFRESH)) {
+            CardRefreshAssignment cardRefreshAssignment = cardRefreshAssignmentRepository.loadById(assignmentId, "not found");
+            fileIds.add(cardRefreshAssignment.getIdentityFileId());
+        } else if (assignment.getCategory().equals(Category.DISPUTE)) {
+            List<UUID> photoIds = disputeAssignmentPhotoRepository.findAllByAssignment_AssignmentId(assignment.getAssignmentId()).stream()
+                    .map(photo -> photo.getId().getPhotoId())
+                    .toList();
+            fileIds.addAll(photoIds);
+        } else {
+            fileIds.add(UUID.fromString(assignmentPdfService.generatePdf(assignment).fileId()));
+        }
 
-        return AssignmentFullDTO.builder()
-                .category(assignment.getCategory())
-                .userId(user.getId())
-                .fullName(user.getFullName())
-                .phoneNumber(user.getLogin())
-                .email(user.getEmail())
-                .assignmentId(assignmentId)
-                .createdOn(assignment.getCreatedOn())
-                .progressStartedOn(assignment.getProgressStartedOn())
-                .fileUrls(fileUrls)
-                .status(assignment.getStatus())
-                .build();
+        List<String> fileUrls = fileRepository.findAllById(fileIds).stream().map(File::getUrl).toList();
+
+        return AssignmentFullDTO.builder().
+                category(assignment.getCategory()).
+                userId(user.getId()).
+                fullName(user.getFullName()).
+                phoneNumber(user.getLogin()).
+                email(user.getEmail()).
+                assignmentId(assignmentId).
+                createdOn(assignment.getCreatedOn()).
+                progressStartedOn(assignment.getProgressStartedOn()).
+                fileUrls(fileUrls).
+                status(assignment.getStatus()).
+                build();
     }
 
 }
