@@ -1,9 +1,7 @@
 package uz.ccrew.assignmentservice.assignment.service.impl;
 
-import uz.ccrew.assignmentservice.assignment.entity.CardRefreshAssignment;
-import uz.ccrew.assignmentservice.assignment.repository.CardRefreshAssignmentRepository;
-import uz.ccrew.assignmentservice.assignment.repository.DisputeAssignmentPhotoRepository;
 import uz.ccrew.assignmentservice.file.File;
+import uz.ccrew.assignmentservice.file.FileDTO;
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.base.AuthUtil;
@@ -24,9 +22,12 @@ import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.entity.RequisiteAssignment;
+import uz.ccrew.assignmentservice.assignment.entity.CardRefreshAssignment;
 import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentCreateService;
 import uz.ccrew.assignmentservice.assignment.repository.RequisiteAssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.CardRefreshAssignmentRepository;
+import uz.ccrew.assignmentservice.assignment.repository.DisputeAssignmentPhotoRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -48,13 +49,13 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final UserRepository userRepository;
     private final ChatUserService chatUserService;
     private final AssignmentMapper assignmentMapper;
-    private final DisputeAssignmentPhotoRepository disputeAssignmentPhotoRepository;
-    private final CardRefreshAssignmentRepository cardRefreshAssignmentRepository;
     private final NotificationService notificationService;
     private final AssignmentRepository assignmentRepository;
     private final AssignmentPdfService assignmentPdfService;
     private final AssignmentCreateService assignmentCreateService;
     private final RequisiteAssignmentRepository requisiteAssignmentRepository;
+    private final CardRefreshAssignmentRepository cardRefreshAssignmentRepository;
+    private final DisputeAssignmentPhotoRepository disputeAssignmentPhotoRepository;
 
     @Override
     public Page<AssignmentSummaryDTO> getSummary(int page, int size) {
@@ -283,7 +284,10 @@ public class AssignmentServiceImpl implements AssignmentService {
                     .toList();
             fileIds.addAll(photoIds);
         } else {
-            fileIds.add(UUID.fromString(assignmentPdfService.generatePdf(assignment).fileId()));
+            FileDTO fileDTO = assignmentPdfService.generatePdf(assignment);
+            if (fileDTO != null) {
+                fileIds.add(UUID.fromString(fileDTO.fileId()));
+            }
         }
 
         List<String> fileUrls = fileRepository.findAllById(fileIds).stream().map(File::getUrl).toList();

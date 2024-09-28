@@ -1,25 +1,24 @@
 package uz.ccrew.assignmentservice.assignment.service.impl;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
-import uz.ccrew.assignmentservice.assignment.entity.*;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.springframework.mock.web.MockMultipartFile;
-
-import org.springframework.stereotype.Service;
-import uz.ccrew.assignmentservice.assignment.enums.Category;
-import uz.ccrew.assignmentservice.assignment.repository.*;
 import uz.ccrew.assignmentservice.file.FileDTO;
+import uz.ccrew.assignmentservice.assignment.entity.*;
+import uz.ccrew.assignmentservice.assignment.repository.*;
 import uz.ccrew.assignmentservice.file.service.FileService;
+import uz.ccrew.assignmentservice.assignment.enums.Category;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.springframework.stereotype.Service;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -32,30 +31,23 @@ public class AssignmentPdfService {
     private final FileService fileService;
 
     public FileDTO generatePdf(Assignment assignment) {
-        // Create a new document
         try (PDDocument document = new PDDocument();
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-
-
-            // Add a page to the document
             PDPage page = new PDPage();
             document.addPage(page);
 
-            // Start a content stream which will be used to write text to the page
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.setLeading(14.5f);
                 contentStream.newLineAtOffset(25, 750);
 
-                // Write Assignment information
                 contentStream.showText("Assignment ID: " + assignment.getAssignmentId());
                 contentStream.newLine();
                 contentStream.showText("Category: " + assignment.getCategory());
                 contentStream.newLine();
                 contentStream.showText("Details: " + assignment.getDetails());
                 contentStream.newLine();
-
 
                 if (assignment.getCategory().equals(Category.SWIFT_PHYSICAL)) {
                     TransferAssignment transferAssignment = transferAssignmentRepository.loadById(assignment.getAssignmentId(), "Transfer assignment not found");
@@ -120,20 +112,15 @@ public class AssignmentPdfService {
                     contentStream.showText("Cards: " + cards);
                     contentStream.newLine();
                 }
-
-                // Close the content stream
                 contentStream.endText();
             }
-
-            // Save the document to a file
             document.save(outputStream);
 
-            // Convert ByteArrayOutputStream to MultipartFile
             MultipartFile multipartFile = new MockMultipartFile(
-                    "assignment.pdf",                        // File name
-                    "assignment.pdf",                        // Original file name
-                    "application/pdf",                       // Content type
-                    new ByteArrayInputStream(outputStream.toByteArray())  // InputStream
+                    "assignment.pdf",
+                    "assignment.pdf",
+                    "application/pdf",
+                    new ByteArrayInputStream(outputStream.toByteArray())
             );
 
             return fileService.upload(multipartFile);

@@ -106,7 +106,6 @@ public class AssignmentController {
         return ResponseMaker.okMessage("Employee assigned");
     }
 
-    //TODO get list for employee and manager
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('EMPLOYEE','MANAGER')")
     @Operation(summary = "Get list for EMPLOYEE and MANAGER")
