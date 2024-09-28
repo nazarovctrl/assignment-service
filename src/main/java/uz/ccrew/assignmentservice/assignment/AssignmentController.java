@@ -1,16 +1,9 @@
 package uz.ccrew.assignmentservice.assignment;
 
+import uz.ccrew.assignmentservice.assignment.dto.*;
 import uz.ccrew.assignmentservice.base.dto.Response;
 import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
-import uz.ccrew.assignmentservice.assignment.dto.WithdrawDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCancelDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCreateDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentColumnsDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentSummaryDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCompleteDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentService;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentStatusChangeDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -104,4 +97,14 @@ public class AssignmentController {
         assignmentService.complete(dto);
         return ResponseMaker.okMessage("Assignment completed");
     }
+
+    @PatchMapping("/assign-employee")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE','MANAGER')")
+    @Operation(summary = "Assign employee id to assignment")
+    public ResponseEntity<Response<?>> assignEmployee(@RequestBody @Valid AssignEmployeeDTO dto) {
+        assignmentService.assignEmployee(dto);
+        return ResponseMaker.okMessage("Employee assigned");
+    }
+
+    //TODO get list for employee and manager
 }

@@ -3,27 +3,21 @@ package uz.ccrew.assignmentservice.assignment.service.impl;
 import uz.ccrew.assignmentservice.user.User;
 import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.base.AuthUtil;
+import uz.ccrew.assignmentservice.assignment.dto.*;
 import uz.ccrew.assignmentservice.payment.PaymentType;
 import uz.ccrew.assignmentservice.user.UserRepository;
 import uz.ccrew.assignmentservice.exp.NotFoundException;
 import uz.ccrew.assignmentservice.payment.PaymentService;
 import uz.ccrew.assignmentservice.exp.BadRequestException;
 import uz.ccrew.assignmentservice.assignment.enums.Category;
-import uz.ccrew.assignmentservice.assignment.dto.WithdrawDTO;
 import uz.ccrew.assignmentservice.assignment.AssignmentMapper;
+import uz.ccrew.assignmentservice.chat.service.ChatUserService;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.assignment.repository.AssignmentRepository;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCancelDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCreateDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentColumnsDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentSummaryDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCompleteDTO;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentService;
 import uz.ccrew.assignmentservice.assignment.entity.RequisiteAssignment;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentStatusChangeDTO;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentCreateService;
 import uz.ccrew.assignmentservice.assignment.repository.RequisiteAssignmentRepository;
 
@@ -42,6 +36,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AuthUtil authUtil;
     private final PaymentService paymentService;
     private final UserRepository userRepository;
+    private final ChatUserService chatUserService;
     private final AssignmentMapper assignmentMapper;
     private final NotificationService notificationService;
     private final AssignmentRepository assignmentRepository;
@@ -143,7 +138,7 @@ public class AssignmentServiceImpl implements AssignmentService {
             assignmentRepository.save(assignment);
 
             notificationService.sendNotification(user.getLogin(), "Ваша заявка на  поручение принято в работу");
-            List<String> employees = userRepository.findEmployees();
+            List<String> employees = userRepository.findEmployeesAndManager();
             notificationService.sendNotification(employees, "У Вас новое поручение на исполнение");
         }
     }
@@ -202,5 +197,23 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignmentRepository.save(assignment);
 
         notificationService.sendNotification(assignment.getCreatedBy().getLogin(), "Ваше поручение выполнено и готово к скачиванию");
+    }
+
+    @Override
+    public void assignEmployee(AssignEmployeeDTO dto) {
+        Assignment assignment = assignmentRepository.loadById(dto.assignmentId(), "Assignment not found");
+
+        User user = authUtil.loadLoggedUser();
+        User employee;
+        if (user.getRole().equals(UserRole.MANAGER)) {
+            employee = userRepository.loadById(dto.employeeId(), "Employee not found");
+            notificationService.sendNotification(employee.getLogin(), "У Вас новое поручение на исполнение");
+        } else {
+            employee = user;
+        }
+        assignment.setEmployeeId(employee.getId());
+        assignmentRepository.save(assignment);
+
+        chatUserService.addUserToChat(employee, assignment.getChat());
     }
 }

@@ -1,13 +1,6 @@
 package uz.ccrew.assignmentservice.assignment.service;
 
-import uz.ccrew.assignmentservice.assignment.dto.WithdrawDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCancelDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCreateDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentColumnsDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentSummaryDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentDetailedDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentCompleteDTO;
-import uz.ccrew.assignmentservice.assignment.dto.AssignmentStatusChangeDTO;
+import uz.ccrew.assignmentservice.assignment.dto.*;
 
 import org.springframework.data.domain.Page;
 
@@ -31,4 +24,6 @@ public interface AssignmentService {
     void changeStatus(AssignmentStatusChangeDTO dto);
 
     void complete(AssignmentCompleteDTO dto);
+
+    void assignEmployee(AssignEmployeeDTO dto);
 }
