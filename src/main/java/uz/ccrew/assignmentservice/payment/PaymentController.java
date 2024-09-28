@@ -1,8 +1,5 @@
 package uz.ccrew.assignmentservice.payment;
 
-import uz.ccrew.assignmentservice.dto.Response;
-import uz.ccrew.assignmentservice.dto.ResponseMaker;
-
 import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import uz.ccrew.assignmentservice.base.dto.Response;
+import uz.ccrew.assignmentservice.base.dto.ResponseMaker;
 
 import java.util.List;
 
