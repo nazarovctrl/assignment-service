@@ -18,6 +18,6 @@ public class ValidatorUtil {
 
     public static boolean isNotValidSwiftCode(String swiftCode) {
         String regex = "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$";
-        return swiftCode.matches(regex);
+        return !swiftCode.matches(regex);
     }
 }

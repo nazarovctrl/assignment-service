@@ -40,10 +40,10 @@ public class PaymentServiceImpl implements PaymentService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBasicAuth(paymentServiceUsername, paymentServicePassword);
 
-            String requestUrl = String.format("%s/api/v1/payment/reverse{%s}", paymentServiceUrl, paymentId);
+            String requestUrl = String.format("%s/api/v1/payment/reverse/%s", paymentServiceUrl, paymentId);
 
             HttpEntity<String> request = new HttpEntity<>(headers);
-            ResponseEntity<String> response = restTemplate.exchange(requestUrl, HttpMethod.POST, request, String.class);
+            restTemplate.exchange(requestUrl, HttpMethod.POST, request, String.class);
         } catch (HttpClientErrorException e) {
             throw new BadRequestException("Payment reverse exception");
         }

@@ -17,4 +17,6 @@ public interface UserService {
     void deleteById(Long userId);
 
     Page<UserDTO> getList(int page, int size);
+
+    Page<UserDTO> getEmployeeList(int page, int size);
 }

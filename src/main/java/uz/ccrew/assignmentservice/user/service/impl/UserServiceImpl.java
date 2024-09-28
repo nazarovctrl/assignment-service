@@ -1,6 +1,7 @@
 package uz.ccrew.assignmentservice.user.service.impl;
 
 import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.user.UserRole;
 import uz.ccrew.assignmentservice.base.AuthUtil;
 import uz.ccrew.assignmentservice.user.UserMapper;
 import uz.ccrew.assignmentservice.user.dto.UserDTO;
@@ -72,6 +73,18 @@ public class UserServiceImpl implements UserService {
 
         List<User> userList = pageObj.getContent();
         List<UserDTO> dtoList = userList.stream().map(userMapper::toDTO).toList();
+
+        return new PageImpl<>(dtoList, pageable, pageObj.getTotalElements());
+    }
+
+    @Override
+    public Page<UserDTO> getEmployeeList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        Page<User> pageObj = userRepository.findByRole(UserRole.EMPLOYEE, pageable);
+
+        List<User> employeeList = pageObj.getContent();
+        List<UserDTO> dtoList = employeeList.stream().map(userMapper::toDTO).toList();
 
         return new PageImpl<>(dtoList, pageable, pageObj.getTotalElements());
     }

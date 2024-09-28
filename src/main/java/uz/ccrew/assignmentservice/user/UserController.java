@@ -73,4 +73,13 @@ public class UserController {
         Page<UserDTO> result = userService.getList(page, size);
         return ResponseMaker.ok(result);
     }
+
+    @GetMapping("/get/employee-list")
+    @PreAuthorize("hasAuthority('MANAGER')")
+    @Operation(summary = "Employee list for MANAGER")
+    public ResponseEntity<Response<Page<UserDTO>>> getEmployeeList(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        Page<UserDTO> result = userService.getEmployeeList(page, size);
+        return ResponseMaker.ok(result);
+    }
 }

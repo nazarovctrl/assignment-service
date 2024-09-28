@@ -10,11 +10,11 @@ import uz.ccrew.assignmentservice.assignment.ValidatorUtil;
 import uz.ccrew.assignmentservice.assignment.enums.Category;
 import uz.ccrew.assignmentservice.assignment.entity.Assignment;
 import uz.ccrew.assignmentservice.assignment.enums.TransferType;
-import uz.ccrew.assignmentservice.chat.repository.ChatRepository;
 import uz.ccrew.assignmentservice.assignment.enums.AssignmentStatus;
 import uz.ccrew.assignmentservice.assignment.dto.AssignmentCreateDTO;
 import uz.ccrew.assignmentservice.assignment.enums.SwiftReceiverType;
 import uz.ccrew.assignmentservice.assignment.service.AssignmentCreateService;
+import uz.ccrew.assignmentservice.assignmentchat.service.AssignmentChatService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,8 +27,8 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class AssignmentCreateServiceImpl implements AssignmentCreateService {
-    private final ChatRepository chatRepository;
     private final AssignmentRepository assignmentRepository;
+    private final AssignmentChatService assignmentChatService;
     private final AssignmentValidateService assignmentValidateService;
     private final TransferAssignmentRepository transferAssignmentRepository;
     private final RequisiteAssignmentRepository requisiteAssignmentRepository;
@@ -48,11 +48,7 @@ public class AssignmentCreateServiceImpl implements AssignmentCreateService {
             }
 
             PaymentType paymentType = getPaymentType(dto.cardNumberToPay(), dto.accountNumberToPay());
-
-            Chat chat = Chat.builder()
-                    .chatName(String.format("%s %s", dto.category(), LocalDateTime.now()))
-                    .build();
-            chatRepository.save(chat);
+            Chat chat = assignmentChatService.create(String.format("%s %s", dto.category(), LocalDateTime.now()));
 
             Assignment assignment = Assignment.builder()
                     .fileId(UUID.fromString(dto.fileId()))
@@ -98,10 +94,10 @@ public class AssignmentCreateServiceImpl implements AssignmentCreateService {
                 && (accountNumber == null || ValidatorUtil.isNotValidAccountNumber(accountNumber))) {
             throw new BadRequestException("Invalid cardNumber or accountNumber");
         } else {
-            if (accountNumber != null) {
-                paymentType = PaymentType.ACCOUNT;
-            } else {
+            if (cardNumber != null && !ValidatorUtil.isNotValidCardNumber(cardNumber)) {
                 paymentType = PaymentType.CARD;
+            } else {
+                paymentType = PaymentType.ACCOUNT;
             }
         }
         return paymentType;

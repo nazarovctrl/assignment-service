@@ -1,8 +1,9 @@
 package uz.ccrew.assignmentservice.chat.service;
 
-import java.util.UUID;
+import uz.ccrew.assignmentservice.user.User;
+import uz.ccrew.assignmentservice.chat.entity.Chat;
 
 public interface ChatUserService {
-    void addUserToChat(Long userId, UUID chatId);
+    void addUserToChat(User user, Chat chat);
 }
 
