@@ -5,5 +5,5 @@ import uz.ccrew.assignmentservice.user.UserRole;
 import lombok.Builder;
 
 @Builder
-public record UserDTO(Long id, String login, UserRole role) {
+public record UserDTO(Long id, String login, UserRole role, String fullName) {
 }

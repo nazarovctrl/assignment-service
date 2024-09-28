@@ -5,6 +5,7 @@ import uz.ccrew.assignmentservice.base.AuthUtil;
 import uz.ccrew.assignmentservice.chat.entity.Message;
 import uz.ccrew.assignmentservice.chat.entity.ChatUser;
 import uz.ccrew.assignmentservice.chat.service.MessageService;
+import uz.ccrew.assignmentservice.assignmentchat.dto.MessageDTO;
 import uz.ccrew.assignmentservice.notifcation.NotificationService;
 import uz.ccrew.assignmentservice.chat.repository.MessageRepository;
 import uz.ccrew.assignmentservice.chat.repository.ChatUserRepository;
@@ -26,7 +27,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Transactional
     @Override
-    public void sendMessage(UUID chatId, String content) {
+    public MessageDTO sendMessage(UUID chatId, String content) {
         User user = authUtil.loadLoggedUser();
         chatUserRepository.loadById(new ChatUser.ChatUserId(chatId, user.getId()), "Chat not found");
 
@@ -40,5 +41,27 @@ public class MessageServiceImpl implements MessageService {
         notificationService.sendNotification(users, content);
 
         messageRepository.save(message);
+
+        return MessageDTO.builder()
+                .messageId(message.getMessageId())
+                .chatId(message.getChatId())
+                .senderId(message.getSenderId())
+                .sentTime(message.getCreatedOn())
+                .content(message.getContent())
+                .build();
+    }
+
+    @Override
+    public List<MessageDTO> getList(UUID chatId) {
+        List<Message> messages = messageRepository.findAllByChatIdOrderByCreatedOn(chatId);
+        return messages.stream()
+                .map(message -> MessageDTO.builder()
+                        .messageId(message.getMessageId())
+                        .chatId(message.getChatId())
+                        .senderId(message.getSenderId())
+                        .sentTime(message.getCreatedOn())
+                        .content(message.getContent())
+                        .build())
+                .toList();
     }
 }
