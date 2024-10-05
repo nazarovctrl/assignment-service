@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 @Configuration
 @SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
-@OpenAPIDefinition(info = @Info(title = "Flight management API", version = "1.0", description = "Flight management documentation"))
+@OpenAPIDefinition(info = @Info(title = "Assigment service API", version = "1.0", description = "Assigment service documentation"))
 @ConditionalOnProperty(value = "spring.fox.documentation.enabled", havingValue = "true", matchIfMissing = true)
 public class SwaggerConfig {
 
