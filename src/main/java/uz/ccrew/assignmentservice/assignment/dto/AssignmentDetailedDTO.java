@@ -20,15 +20,17 @@ public class AssignmentDetailedDTO {
     private Long paymentAmount;
     private String details;
     private String note;
+    private String responseFileUrl;
     private List<MessageDTO> comments;
 
-    public AssignmentDetailedDTO(Long assigmentId, Category category, LocalDateTime date, AssignmentStatus status, Long paymentAmount, String details, String note) {
+    public AssignmentDetailedDTO(Long assigmentId, Category category, LocalDateTime date, AssignmentStatus status, Long paymentAmount, String details, String note, String responseFileUrl) {
         this.assigmentId = assigmentId;
         this.category = category;
         this.date = date;
         this.status = status;
         this.paymentAmount = paymentAmount;
         this.details = details;
+        this.responseFileUrl = responseFileUrl;
         this.note = note;
     }
 }

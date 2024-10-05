@@ -27,10 +27,13 @@ public interface AssignmentRepository extends BasicRepository<Assignment, Long> 
                    a.status,
                    r.paymentAmount,
                    a.details,
-                   a.note)
+                   a.note,
+                   f.url)
               from Assignment a
               left join RequisiteAssignment r
                 on a.assignmentId = r.assignmentId
+              left join File f
+                on f.fileId = a.responseFileId 
              where a.assignmentId = :assigmentId
                and a.createdBy.id = :userId
              """)

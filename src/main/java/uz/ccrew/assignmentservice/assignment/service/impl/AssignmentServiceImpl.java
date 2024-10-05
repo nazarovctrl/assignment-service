@@ -171,7 +171,7 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new BadRequestException("You can't cancel assigment which status is not ACCEPTED");
         }
         User user = authUtil.loadLoggedUser();
-        if (assignment.getEmployeeId().equals(user.getId())) {
+        if (!assignment.getEmployeeId().equals(user.getId())) {
             throw new BadRequestException("You cant change the assignment status. Because you are not assigned employee");
         }
 
@@ -193,7 +193,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         User user = authUtil.loadLoggedUser();
         if (user.getRole().equals(UserRole.EMPLOYEE)) {
-            if (assignment.getEmployeeId().equals(user.getId())) {
+            if (!assignment.getEmployeeId().equals(user.getId())) {
                 throw new BadRequestException("You cant change the assignment status. Because you are not assigned employee");
             }
             if (!assignment.getStatus().equals(AssignmentStatus.ACCEPTED)) {
@@ -224,7 +224,7 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new BadRequestException("Assignment can be complete only when status is IN_PROGRESS");
         }
         User user = authUtil.loadLoggedUser();
-        if (assignment.getEmployeeId().equals(user.getId())) {
+        if (!assignment.getEmployeeId().equals(user.getId())) {
             throw new BadRequestException("You cant change the assignment status, Because you are not assigned employee");
         }
 
